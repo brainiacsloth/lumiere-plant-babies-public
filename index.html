@@ -796,13 +796,13 @@ input[type="date"].fi{color-scheme:light}
 <div id="modal-host"></div>
 <nav class="mob-nav" id="mob-nav"></nav>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 
 // ═══ SUPABASE CONFIG ════════════════════════════════════════════════════════
 var SUPA_URL = "https://bucpaequwwtiresykdhl.supabase.co";
-var SUPA_KEY = "sb_publishable_MtReDNNiCgtFAbiNFZ49Rg_ddxcn8q7";
+var SUPA_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1Y3BhZXF1d3d0aXJlc3lrZGhsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMzE1NjQsImV4cCI6MjA4OTYwNzU2NH0.7i-sbQhs3utckI070MCjTK1kjeoqD5scsXIl5Ticp-A";
 var supa = null;
 try {
   supa = supabase.createClient(SUPA_URL, SUPA_KEY);
@@ -920,12 +920,23 @@ async function dbLoadLogs() {
 
 // Upsert a single plant
 async function dbSavePlant(p) {
-  if(!supa || !currentUserId) return;
+  if(!supa || !currentUserId) { console.warn('dbSavePlant: no supa or userId'); return; }
   var row = plantToRow(p);
-  console.log('Saving plant row:', JSON.stringify({plant_id:row.plant_id,user_id:row.user_id,plant_name:row.plant_name}));
-  var res = await supa.from('plants').upsert(row);
-  if(res.error) console.error('dbSavePlant error:', res.error.message);
-  else console.log('Plant saved OK, id:', row.plant_id);
+  console.log('Saving plant:', row.plant_name, 'user_id:', row.user_id);
+  // Try upsert with onConflict on plant_id
+  var res = await supa.from('plants').upsert(row, {onConflict:'plant_id'});
+  if(res.error) {
+    console.error('dbSavePlant upsert error:', res.error.message, res.error.code, res.error.details);
+    // Fallback: try insert
+    var res2 = await supa.from('plants').insert(row);
+    if(res2.error) {
+      console.error('dbSavePlant insert error:', res2.error.message, res2.error.code);
+    } else {
+      console.log('Plant inserted OK via fallback');
+    }
+  } else {
+    console.log('Plant upserted OK');
+  }
 }
 
 // Delete a plant
