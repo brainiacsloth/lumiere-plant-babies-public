@@ -2805,8 +2805,13 @@ function renderPlantModal(isEdit){
     save("lpb5_plants",plants);
     // Upsert the changed plant to DB
     var _changedPlant=isEdit?plants.filter(function(p){return p.PlantID===selPlant.PlantID;})[0]:plants[plants.length-1];
-    if(_changedPlant)dbSavePlant(_changedPlant);
-    modal=null;fd={};render();
+    if(_changedPlant){
+      dbSavePlant(_changedPlant).then(function(){
+        modal=null;fd={};render();
+      });
+    } else {
+      modal=null;fd={};render();
+    }
   }}));
   if(isEdit){box.appendChild(el("button",{cls:"btn-cancel btn-danger",txt:"Delete this plant",onclick:function(){if(!confirm("Delete?"))return;plants=plants.filter(function(p){return p.PlantID!==selPlant.PlantID;});logs=logs.filter(function(l){return l.PlantID!==selPlant.PlantID;});save("lpb5_plants",plants);save("lpb5_logs",logs);
     if(selPlant)dbDeletePlant(selPlant.PlantID);
@@ -2958,7 +2963,6 @@ function renderLogModal(isEdit){
     if(isEdit)logs=logs.map(function(l){return l.LogID===selLog.LogID?entry:l;});else logs.push(entry);
     save("lpb5_logs",logs);
     var _entry=isEdit?logs.filter(function(l){return l.LogID===selLog.LogID;})[0]:logs[logs.length-1];
-    if(_entry)dbSaveLog(_entry);
     // Auto-add to plant leaf count when new leaves logged (new entries only)
     if(!isEdit&&entry.NewLeaves&&entry.NewLeafCount&&p){
       var _pl=plants.filter(function(x){return x.PlantID===p.PlantID;})[0];
@@ -2969,7 +2973,11 @@ function renderLogModal(isEdit){
         dbSavePlant(plants.filter(function(x){return x.PlantID===p.PlantID;})[0]);
       }
     }
-    modal=null;fd={};render();
+    var _savePromises=[];
+    if(_entry)_savePromises.push(dbSaveLog(_entry));
+    Promise.all(_savePromises).then(function(){
+      modal=null;fd={};render();
+    });
   }}));
   if(isEdit){box.appendChild(el("button",{cls:"btn-cancel btn-danger",txt:"Delete this log",onclick:function(){if(!confirm("Delete?"))return;logs=logs.filter(function(l){return l.LogID!==selLog.LogID;});save("lpb5_logs",logs);
     // Upsert log to DB
