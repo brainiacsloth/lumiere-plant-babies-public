@@ -3407,44 +3407,5 @@ document.body.classList.toggle("is-mobile",isMobile());
 checkAuth();
 </script>
 
-<!-- TEMP DEBUG: Supabase connection test -->
-<div id="supa-test" style="position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px">
-  <button onclick="supaTest()" style="padding:10px 16px;background:#0a2e22;color:#fff;border:none;border-radius:8px;font-family:monospace;font-size:12px;cursor:pointer">Test DB Save</button>
-  <div id="supa-test-result" style="font-family:monospace;font-size:11px;background:#fff;padding:8px;border-radius:6px;max-width:300px;word-break:break-all;display:none"></div>
-</div>
-<script>
-async function supaTest(){
-  var out=document.getElementById('supa-test-result');
-  out.style.display='block';
-  out.textContent='Testing...';
-  try {
-    // 1. Check session
-    var sess=await supa.auth.getSession();
-    var uid=sess.data&&sess.data.session?sess.data.session.user.id:null;
-    if(!uid){out.textContent='ERROR: No session / not logged in';return;}
-    out.textContent='UID: '+uid.slice(0,8)+'...\nInserting test row...';
-    // 2. Try direct insert
-    var testRow={
-      plant_id: crypto.randomUUID?crypto.randomUUID():(Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2)),
-      user_id: uid,
-      plant_name: 'TEST_PLANT_'+Date.now(),
-      genus: 'Testus',
-      species: 'testus',
-      location: 'Indoor',
-      category: 'other',
-      dead: false
-    };
-    var res=await supa.from('plants').insert(testRow);
-    if(res.error){
-      out.textContent='INSERT ERROR:\n'+res.error.message+'\nCode: '+res.error.code+'\nDetails: '+JSON.stringify(res.error.details);
-    } else {
-      out.textContent='SUCCESS! Row inserted.\nUID: '+uid.slice(0,8)+'...\nPlant: '+testRow.plant_name;
-    }
-  } catch(e){
-    out.textContent='EXCEPTION: '+e.message;
-  }
-}
-</script>
-
 </body>
 </html>
