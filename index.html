@@ -764,6 +764,14 @@ input[type="date"].fi{color-scheme:light}
 .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--faint)}
 .auth-divider span{font-family:"Geist Mono",monospace;font-size:9px;color:var(--muted);letter-spacing:1px}
 
+
+.ins-panel{position:relative}
+.ins-expand-btn{position:absolute;top:12px;right:12px;background:none;border:1px solid rgba(0,0,0,0.12);border-radius:6px;padding:3px 8px;font-family:"Geist Mono",monospace;font-size:9px;color:var(--muted);cursor:pointer;letter-spacing:.5px;transition:all .15s;z-index:2}
+.ins-expand-btn:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
+.ins-panel-expanded{position:fixed!important;inset:16px!important;z-index:500!important;border-radius:16px!important;overflow-y:auto!important;padding:24px!important;box-shadow:0 24px 80px rgba(0,0,0,0.25)!important;background:rgba(250,247,242,0.98)!important}
+.ins-panel-expanded .ins-expand-btn{top:16px;right:16px}
+.ins-overlay{position:fixed;inset:0;background:rgba(10,46,34,0.5);z-index:499;backdrop-filter:blur(4px)}
+
 </style>
 </head>
 <body>
@@ -828,7 +836,13 @@ function plantToRow(p) {
     died_date:     p.diedDate || null,
     category:      p.category || 'other',
     cultivar:      p.Cultivar || null,
-    leaf_count:    p.leafCount || null
+    leaf_count:    p.leafCount || null,
+    source_type:   p.sourceType || null,
+    source_name:   p.sourceName || null,
+    source_contact:p.sourceContact || null,
+    price:         p.price || null,
+    grow_method:   p.growMethod || null,
+    height_cm:     p.heightCm || null
   };
 }
 
@@ -847,7 +861,13 @@ function rowToPlant(r) {
     diedDate:     r.died_date,
     category:     r.category,
     Cultivar:     r.cultivar || null,
-    leafCount:    r.leaf_count || null
+    leafCount:    r.leaf_count || null,
+    sourceType:   r.source_type || null,
+    sourceName:   r.source_name || null,
+    sourceContact:r.source_contact || null,
+    price:        r.price || null,
+    growMethod:   r.grow_method || null,
+    heightCm:     r.height_cm || null
   };
 }
 
@@ -2147,6 +2167,13 @@ function renderDetailOverlay(p){
   dg.appendChild(dgi("Location",p.Location));
   dg.appendChild(dgi("Growing medium",soilName(p.SoilID)));
   if(p.Cultivar)dg.appendChild(dgi("Cultivar","‘"+p.Cultivar+"’"));
+  var SRC={"nursery":"Nursery","store":"Store","facebook":"Facebook Marketplace","online":"Online shop","gifted":"Gifted","rescued":"Rescued","propagated":"Propagated","other":"Other"};
+  if(p.sourceType)dg.appendChild(dgi("Source",SRC[p.sourceType]||p.sourceType));
+  if(p.sourceName)dg.appendChild(dgi(p.sourceType==="facebook"?"Seller":p.sourceType==="nursery"?"Nursery":"Store name",p.sourceName));
+  if(p.sourceContact)dg.appendChild(dgi("Seller contact",p.sourceContact));
+  if(p.price)dg.appendChild(dgi("Price paid","R"+Number(p.price).toFixed(2)));
+  if(p.growMethod){var GM={"bought":"Bought","propagated":"Propagated","seeded":"From seed","corm":"From corm","division":"Division","air_layer":"Air layering","tissue_culture":"Tissue culture","offset":"Offset / pup","gifted":"Gifted","rescued":"Rescued","other":"Other"};dg.appendChild(dgi("Grown by",GM[p.growMethod]||p.growMethod));}
+  if(p.heightCm)dg.appendChild(dgi("Height",p.heightCm+" cm"));
   dg.appendChild(dgi("Health",ll?ll.HealthStatus:"No logs"));
   dg.appendChild(dgi("Stage",ll?ll.PlantStage:"Unknown"));
   if(p.dead)dg.appendChild(dgi("Passed away",fmt(p.diedDate)));
@@ -2480,6 +2507,32 @@ function makeRemCard(p,type){
 }
 
 // ═══ INSIGHTS ═══════════════════════════════════════════════
+
+function makeInsPanel(titleTxt) {
+  var panel = el("div",{cls:"ins-panel"});
+  if(titleTxt) panel.appendChild(el("div",{cls:"ip-t",txt:titleTxt}));
+  var expBtn = el("button",{cls:"ins-expand-btn",txt:"EXPAND"});
+  var overlay = null;
+  expBtn.onclick = function(e){
+    e.stopPropagation();
+    var expanded = panel.classList.contains("ins-panel-expanded");
+    if(expanded){
+      panel.classList.remove("ins-panel-expanded");
+      expBtn.textContent="EXPAND";
+      if(overlay&&overlay.parentNode)overlay.parentNode.removeChild(overlay);
+      overlay=null;
+    } else {
+      overlay=el("div",{cls:"ins-overlay"});
+      overlay.onclick=function(){expBtn.click();};
+      document.body.appendChild(overlay);
+      panel.classList.add("ins-panel-expanded");
+      expBtn.textContent="CLOSE";
+    }
+  };
+  panel.appendChild(expBtn);
+  return panel;
+}
+
 function renderInsights(parent){
   var alive=plants.filter(function(p){return !p.dead;});
   var dead=plants.filter(function(p){return p.dead;});
@@ -2494,7 +2547,9 @@ function renderInsights(parent){
   stats.appendChild(is("ALIVE",alive.length,"plants"));
   stats.appendChild(is("CARE LOGS",logs.length,"total"));
   stats.appendChild(is("NEW LEAVES",totalLeaves,"tracked"));
+  var totalSpend=plants.reduce(function(s,p){return s+(p.price||0);},0);
   stats.appendChild(is("HEALTH SCORE",healthyPct+"%","currently"));
+  if(totalSpend>0)stats.appendChild(is("COLLECTION VALUE","R"+totalSpend.toFixed(0),"spent"));
   stats.appendChild(is("PASSED",dead.length,"in memoriam"));
   parent.appendChild(stats);
 
@@ -2502,8 +2557,7 @@ function renderInsights(parent){
   var r1=el("div",{cls:"ins-grid"});
 
   // Health panel with doughnut + history bars
-  var hPanel=el("div",{cls:"ins-panel"});
-  hPanel.appendChild(el("div",{cls:"ip-t",txt:"HEALTH DISTRIBUTION"}));
+  var hPanel=makeInsPanel("HEALTH DISTRIBUTION");
   var hc={Healthy:0,Concerning:0,Unhealthy:0};
   lastLogs2.forEach(function(l){hc[l.HealthStatus]=(hc[l.HealthStatus]||0)+1;});
   var tot=lastLogs2.length||1;
@@ -2536,8 +2590,7 @@ function renderInsights(parent){
   r1.appendChild(hPanel);
 
   // Categories + damage types panel
-  var cPanel=el("div",{cls:"ins-panel"});
-  cPanel.appendChild(el("div",{cls:"ip-t",txt:"CATEGORIES"}));
+  var cPanel=makeInsPanel("CATEGORIES");
   CATS.forEach(function(cat){var ct=alive.filter(function(p){return p.category===cat.id;}).length;if(!ct)return;var row=el("div",{cls:"tbl-row"});var lb=el("div",{cls:"tbl-lbl"});lb.innerHTML=cat.ico+" "+cat.label;row.appendChild(lb);row.appendChild(el("div",{cls:"tbl-val",txt:ct+"x"}));cPanel.appendChild(row);});
   var cw=el("div",{cls:"chart-wrap",css:"height:120px"});cw.appendChild(el("canvas",{id:"cv-cat"}));cPanel.appendChild(cw);
 
@@ -2562,7 +2615,7 @@ function renderInsights(parent){
 
   // Row 2: age + pot details
   var r2=el("div",{cls:"ins-grid"});
-  var agePanel=el("div",{cls:"ins-panel"});agePanel.appendChild(el("div",{cls:"ip-t",txt:"PLANT AGE (OLDEST FIRST)"}));
+  var agePanel=makeInsPanel("PLANT AGE (OLDEST FIRST)");
   var aged=alive.filter(function(p){return p.purchaseDate;}).sort(function(a,b){return new Date(a.purchaseDate)-new Date(b.purchaseDate);});
   var maxAge=aged.length?daysOld(aged[0].purchaseDate):1;
   var ab=el("div",{cls:"age-bars"});
@@ -2596,8 +2649,7 @@ function renderInsights(parent){
 
   // Row 3: activity line + genus
   var r3=el("div",{cls:"ins-grid",css:"margin-top:14px"});
-  var actPanel=el("div",{cls:"ins-panel"});
-  actPanel.appendChild(el("div",{cls:"ip-t",txt:"CARE LOGS BY MONTH"}));
+  var actPanel=makeInsPanel("CARE LOGS BY MONTH");
   var lcw=el("div",{cls:"chart-wrap",css:"height:120px"});lcw.appendChild(el("canvas",{id:"cv-line"}));actPanel.appendChild(lcw);
   // Weekly note activity
   var notedLogs=logs.filter(function(l){return l.WeeklyNote;});
@@ -2616,8 +2668,7 @@ function renderInsights(parent){
   }
   r3.appendChild(actPanel);
 
-  var genPanel=el("div",{cls:"ins-panel"});
-  genPanel.appendChild(el("div",{cls:"ip-t",txt:"GENUS BREAKDOWN"}));
+  var genPanel=makeInsPanel("GENUS BREAKDOWN");
   var gc={};alive.forEach(function(p){var g=p.Genus||"Unknown";gc[g]=(gc[g]||0)+1;});
   var gcw=el("div",{css:"display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:7px"});
   Object.keys(gc).sort(function(a,b){return gc[b]-gc[a];}).forEach(function(n){var card=el("div",{cls:"dgi"});card.appendChild(el("div",{cls:"dgi-lbl",txt:"GENUS"}));card.appendChild(el("div",{cls:"dgi-val",css:"font-style:italic;font-family:'Cormorant Garamond',serif;font-size:14px",txt:n}));card.appendChild(el("div",{css:"font-family:'Geist Mono',monospace;font-size:9px;color:var(--sage);margin-top:2px",txt:gc[n]+" plant"+(gc[n]!==1?"s":"")}));gcw.appendChild(card);});
@@ -2629,8 +2680,7 @@ function renderInsights(parent){
   var r4=el("div",{cls:"ins-grid",css:"margin-top:14px"});
 
   // Watering frequency per plant (last 30 days)
-  var wfPanel=el("div",{cls:"ins-panel"});
-  wfPanel.appendChild(el("div",{cls:"ip-t",txt:"WATERING FREQUENCY (LAST 30 DAYS)"}));
+  var wfPanel=makeInsPanel("WATERING FREQUENCY (LAST 30 DAYS)");
   var thirtyDaysAgo=Date.now()-30*86400000;
   var wfData=alive.map(function(p){
     var ct=logs.filter(function(l){return l.PlantID===p.PlantID&&l.Water&&new Date(l.LogDate)>thirtyDaysAgo;}).length;
@@ -2653,8 +2703,7 @@ function renderInsights(parent){
   r4.appendChild(wfPanel);
 
   // Health per individual plant — stacked bar
-  var hpPanel=el("div",{cls:"ins-panel"});
-  hpPanel.appendChild(el("div",{cls:"ip-t",txt:"HEALTH HISTORY PER PLANT"}));
+  var hpPanel=makeInsPanel("HEALTH HISTORY PER PLANT");
   var hpData=alive.map(function(p){
     var pl=logs.filter(function(l){return l.PlantID===p.PlantID;});
     var h=pl.filter(function(l){return l.HealthStatus==="Healthy";}).length;
@@ -2672,8 +2721,7 @@ function renderInsights(parent){
   var r5=el("div",{cls:"ins-grid",css:"margin-top:14px"});
 
   // Fertiliser usage over time
-  var fertPanel=el("div",{cls:"ins-panel"});
-  fertPanel.appendChild(el("div",{cls:"ip-t",txt:"FERTILISER EVENTS BY MONTH"}));
+  var fertPanel=makeInsPanel("FERTILISER EVENTS BY MONTH");
   var fertByMonth={};
   logs.forEach(function(l){if(l.FertiliserUsed){var d3=new Date(l.LogDate);var k=d3.getFullYear()+"-"+String(d3.getMonth()+1).padStart(2,"0");fertByMonth[k]=(fertByMonth[k]||0)+1;}});
   var fertCw=el("div",{cls:"chart-wrap",css:"height:140px"});
@@ -2696,8 +2744,7 @@ function renderInsights(parent){
   r5.appendChild(fertPanel);
 
   // Plant stage distribution — polar area chart
-  var stgPanel=el("div",{cls:"ins-panel"});
-  stgPanel.appendChild(el("div",{cls:"ip-t",txt:"PLANT STAGE DISTRIBUTION"}));
+  var stgPanel=makeInsPanel("PLANT STAGE DISTRIBUTION");
   var stgCounts={Seedling:0,Vegetative:0,Flowering:0,Fruiting:0};
   lastLogs2.forEach(function(l){if(stgCounts[l.PlantStage]!==undefined)stgCounts[l.PlantStage]++;});
   var stgCw=el("div",{cls:"chart-wrap",css:"height:200px"});
@@ -2718,6 +2765,64 @@ function renderInsights(parent){
   stgPanel.appendChild(stgLegend);
   r5.appendChild(stgPanel);
   parent.appendChild(r5);
+
+  // ── ROW 6: Spend analytics ─────────────────────────────────────────────
+  var pricedPlants=alive.filter(function(p){return p.price&&p.price>0;});
+  if(pricedPlants.length){
+    var r6=el("div",{cls:"ins-grid",css:"margin-top:14px"});
+    // Spend summary panel
+    var spendPanel=makeInsPanel("COLLECTION SPEND");
+    var totalAll=plants.reduce(function(s,p){return s+(p.price||0);},0);
+    var totalAlive=alive.reduce(function(s,p){return s+(p.price||0);},0);
+    var avgPrice=pricedPlants.length?totalAlive/pricedPlants.length:0;
+    var mostExp=pricedPlants.sort(function(a,b){return b.price-a.price;})[0];
+    var cheapest=pricedPlants.slice().sort(function(a,b){return a.price-b.price;})[0];
+    var sdg=el("div",{cls:"det-grid",css:"margin-top:10px"});
+    function sdgi(lbl,val){var d=el("div",{cls:"dgi"});d.appendChild(el("div",{cls:"dgi-lbl",txt:lbl}));d.appendChild(el("div",{cls:"dgi-val",txt:val}));return d;}
+    sdg.appendChild(sdgi("Total spent","R"+totalAll.toFixed(2)));
+    sdg.appendChild(sdgi("Alive collection","R"+totalAlive.toFixed(2)));
+    sdg.appendChild(sdgi("Average price","R"+avgPrice.toFixed(2)));
+    sdg.appendChild(sdgi("Plants with price",pricedPlants.length+" of "+alive.length));
+    if(mostExp)sdg.appendChild(sdgi("Most expensive",mostExp.PlantName+" — R"+mostExp.price.toFixed(2)));
+    if(cheapest)sdg.appendChild(sdgi("Cheapest",cheapest.PlantName+" — R"+cheapest.price.toFixed(2)));
+    spendPanel.appendChild(sdg);
+    // Spend by source type bar
+    var srcSpend={};
+    var SRC_LBL={nursery:"Nursery",store:"Store",facebook:"Facebook",online:"Online",gifted:"Gifted",rescued:"Rescued",propagated:"Propagated",other:"Other"};
+    pricedPlants.forEach(function(p){var k=SRC_LBL[p.sourceType]||"Unknown";srcSpend[k]=(srcSpend[k]||0)+(p.price||0);});
+    var srcKeys=Object.keys(srcSpend).sort(function(a,b){return srcSpend[b]-srcSpend[a];});
+    if(srcKeys.length>1){
+      spendPanel.appendChild(el("div",{cls:"ip-t",css:"margin-top:14px",txt:"SPEND BY SOURCE"}));
+      var maxSrc=Math.max.apply(null,srcKeys.map(function(k){return srcSpend[k];}));
+      srcKeys.forEach(function(k){
+        var row=el("div",{cls:"age-row"});
+        row.appendChild(el("div",{cls:"ab-nm",txt:k}));
+        var tr=el("div",{cls:"ab-trk"});
+        tr.appendChild(el("div",{cls:"ab-fill",css:"width:"+Math.round(srcSpend[k]/maxSrc*100)+"%;background:linear-gradient(90deg,var(--amber),#f0c040)"}));
+        row.appendChild(tr);
+        row.appendChild(el("div",{cls:"ab-age",txt:"R"+srcSpend[k].toFixed(0)}));
+        spendPanel.appendChild(row);
+      });
+    }
+    r6.appendChild(spendPanel);
+    // Spend by store chart
+    var storeSpend={};
+    pricedPlants.filter(function(p){return p.sourceType==="store"&&p.sourceName;}).forEach(function(p){storeSpend[p.sourceName]=(storeSpend[p.sourceName]||0)+(p.price||0);});
+    var storeKeys=Object.keys(storeSpend);
+    if(storeKeys.length){
+      var storePanel=makeInsPanel("SPEND BY STORE");
+      var stCw=el("div",{cls:"chart-wrap",css:"height:180px"});stCw.appendChild(el("canvas",{id:"cv-store-spend"}));storePanel.appendChild(stCw);
+      r6.appendChild(storePanel);
+    }
+    parent.appendChild(r6);
+    // Draw store chart
+    if(storeKeys.length){
+      setTimeout(function(){
+        var sc4=document.getElementById("cv-store-spend");
+        if(sc4&&typeof Chart!=="undefined")new Chart(sc4,{type:"bar",data:{labels:storeKeys,datasets:[{data:storeKeys.map(function(k){return storeSpend[k];}),backgroundColor:"rgba(192,120,8,0.65)",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"}}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},callback:function(v){return"R"+v;}}}}}});
+      },60);
+    }
+  }
 
 
   setTimeout(function(){
@@ -2786,6 +2891,87 @@ function renderPlantModal(isEdit){
   box.appendChild(el("div",{cls:"fsec",txt:"Growing medium & Purchase date"}));
   box.appendChild(ff("Growing medium","SoilID","select","",[{v:"",l:"Select\u2026"}].concat(SOIL.map(function(s){return{v:s.id,l:s.n};}))));
   box.appendChild(ff("Purchase date","purchaseDate","date",""));
+  box.appendChild(el("div",{cls:"fsec",txt:"Acquisition & Growth"}));
+
+  // ── Source type selector + dynamic sub-fields ──────────────────────────────
+  var srcFg=el("div",{cls:"fg"});srcFg.appendChild(el("label",{cls:"fl",txt:"Where did you get it?"}));
+  var srcSel=el("select",{cls:"fi"});
+  [{v:"",l:"Select..."},{v:"nursery",l:"🌿 Nursery"},{v:"store",l:"🏪 Store"},{v:"facebook",l:"📱 Facebook Marketplace"},{v:"online",l:"🛒 Online shop"},{v:"gifted",l:"🎁 Gifted"},{v:"rescued",l:"💚 Rescued / adopted"},{v:"propagated",l:"✂️ Propagated from own plant"},{v:"other",l:"🤷 Other"}].forEach(function(o){
+    var opt=el("option",{value:o.v,txt:o.l});
+    if(fd.sourceType===o.v)opt.selected=true;
+    srcSel.appendChild(opt);
+  });
+  srcFg.appendChild(srcSel);
+  box.appendChild(srcFg);
+
+  // Dynamic sub-fields container
+  var srcSub=el("div",{id:"src-sub-fields"});
+  box.appendChild(srcSub);
+
+  function buildSourceSub() {
+    srcSub.innerHTML="";
+    var type=srcSel.value;
+    if(type==="nursery"){
+      var nfg=el("div",{cls:"fg"});nfg.appendChild(el("label",{cls:"fl",txt:"Nursery name"}));
+      var nursSel=el("select",{cls:"fi"});
+      [{v:"",l:"Select nursery..."},{v:"Stodels",l:"Stodels"},{v:"Starke Ayres",l:"Starke Ayres"},{v:"Montebello",l:"Montebello Design Centre"},{v:"Other",l:"Other (type below)"}].forEach(function(o){
+        var opt=el("option",{value:o.v,txt:o.l});if(fd.sourceName===o.v)opt.selected=true;nursSel.appendChild(opt);
+      });
+      var nursOther=el("input",{type:"text",cls:"fi",placeholder:"Nursery name...",css:"margin-top:8px;display:"+(fd.sourceName&&!["Stodels","Starke Ayres","Montebello"].includes(fd.sourceName)&&fd.sourceName?"block":"none")});
+      nursOther.value=(fd.sourceName&&!["Stodels","Starke Ayres","Montebello",""].includes(fd.sourceName))?fd.sourceName:"";
+      nursOther.oninput=function(e){fd.sourceName=e.target.value;};
+      nursSel.onchange=function(){
+        if(nursSel.value==="Other"){nursOther.style.display="block";fd.sourceName="";}
+        else{nursOther.style.display="none";fd.sourceName=nursSel.value;}
+      };
+      nfg.appendChild(nursSel);nfg.appendChild(nursOther);srcSub.appendChild(nfg);
+    } else if(type==="store"){
+      var sfg=el("div",{cls:"fg"});sfg.appendChild(el("label",{cls:"fl",txt:"Store name"}));
+      var storeSel=el("select",{cls:"fi"});
+      [{v:"",l:"Select store..."},{v:"Pick n Pay",l:"Pick n Pay"},{v:"Woolworths",l:"Woolworths"},{v:"Checkers",l:"Checkers"},{v:"Stodels",l:"Stodels"},{v:"Starke Ayres",l:"Starke Ayres"},{v:"Montebello",l:"Montebello Design Centre"},{v:"Other",l:"Other"}].forEach(function(o){
+        var opt=el("option",{value:o.v,txt:o.l});if(fd.sourceName===o.v)opt.selected=true;storeSel.appendChild(opt);
+      });
+      storeSel.onchange=function(){fd.sourceName=storeSel.value;};
+      sfg.appendChild(storeSel);
+      srcSub.appendChild(sfg);
+    } else if(type==="facebook"){
+      var ff1=el("div",{cls:"fg"});ff1.appendChild(el("label",{cls:"fl",txt:"Seller name"}));
+      var fi1=el("input",{type:"text",cls:"fi",placeholder:"e.g. Jane's Plant Corner"});
+      fi1.value=fd.sourceName||"";fi1.oninput=function(e){fd.sourceName=e.target.value;};
+      ff1.appendChild(fi1);srcSub.appendChild(ff1);
+      var ff2=el("div",{cls:"fg"});ff2.appendChild(el("label",{cls:"fl",txt:"Seller contact (phone / profile link)"}));
+      var fi2=el("input",{type:"text",cls:"fi",placeholder:"e.g. 082 555 1234"});
+      fi2.value=fd.sourceContact||"";fi2.oninput=function(e){fd.sourceContact=e.target.value;};
+      ff2.appendChild(fi2);srcSub.appendChild(ff2);
+    } else if(type==="online"){
+      var ofg=el("div",{cls:"fg"});ofg.appendChild(el("label",{cls:"fl",txt:"Shop name / URL"}));
+      var oi=el("input",{type:"text",cls:"fi",placeholder:"e.g. Etsy, Takealot, Instagram seller..."});
+      oi.value=fd.sourceName||"";oi.oninput=function(e){fd.sourceName=e.target.value;};
+      ofg.appendChild(oi);srcSub.appendChild(ofg);
+    } else if(type==="other"){
+      var otfg=el("div",{cls:"fg"});otfg.appendChild(el("label",{cls:"fl",txt:"Details"}));
+      var oti=el("input",{type:"text",cls:"fi",placeholder:"Describe where you got it..."});
+      oti.value=fd.sourceName||"";oti.oninput=function(e){fd.sourceName=e.target.value;};
+      otfg.appendChild(oti);srcSub.appendChild(otfg);
+    }
+  }
+  srcSel.onchange=function(){fd.sourceType=srcSel.value;fd.sourceName="";fd.sourceContact="";buildSourceSub();};
+  buildSourceSub();
+
+  // Price + grow method row
+  var pgRow=el("div",{cls:"form-row"});
+  var priceFg=el("div",{cls:"fg"});priceFg.appendChild(el("label",{cls:"fl",txt:"Price paid (R)"}));
+  var priceInp=el("input",{type:"number",cls:"fi",placeholder:"e.g. 250"});
+  priceInp.min="0";priceInp.step="0.01";
+  priceInp.value=fd.price!=null?String(fd.price):"";
+  priceInp.oninput=function(e){var v=parseFloat(e.target.value);fd.price=isNaN(v)?null:v;};
+  priceFg.appendChild(priceInp);pgRow.appendChild(priceFg);
+  box.appendChild(pgRow);
+
+  box.appendChild(ff("How was it grown?","growMethod","select","",[{v:"",l:"Select..."},{v:"bought",l:"Bought"},{v:"propagated",l:"Propagated (cutting)"},{v:"seeded",l:"Grown from seed"},{v:"corm",l:"Grown from corm"},{v:"division",l:"Division"},{v:"air_layer",l:"Air layering"},{v:"tissue_culture",l:"Tissue culture"},{v:"offset",l:"Offset / pup"},{v:"gifted",l:"Gifted"},{v:"rescued",l:"Rescued / adopted"},{v:"other",l:"Other"}]));
+
+  var hRow=el("div",{cls:"form-row"});hRow.appendChild(ff("Height (cm)","heightCm","input","e.g. 45"));box.appendChild(hRow);
+
   // Leaf count field
   var lcFg=el("div",{cls:"fg"});lcFg.appendChild(el("label",{cls:"fl",txt:"Number of leaves"}));
   var lcInp=el("input",{type:"number",cls:"fi",placeholder:"e.g. 8 (optional)"});
@@ -2800,8 +2986,8 @@ function renderPlantModal(isEdit){
   box.appendChild(el("button",{cls:"btn-p",txt:isEdit?"Save changes":"Add to collection",onclick:function(){
     if(!fd.PlantName||!fd.Genus||!fd.Species||!fd.Location){alert("Please fill in name, genus, species, and location.");return;}
     var isDead=fd.dead==="true"||fd.dead===true;
-    if(isEdit){plants=plants.map(function(p){return p.PlantID===selPlant.PlantID?Object.assign({},p,{PlantName:fd.PlantName,Genus:fd.Genus,Species:fd.Species,Cultivar:fd.Cultivar||null,Location:fd.Location,category:fd.category||"other",SoilID:fd.SoilID?+fd.SoilID:null,photo:fd.photo||p.photo,purchaseDate:fd.purchaseDate||null,dead:isDead,diedDate:isDead?(fd.diedDate||toDS()):null,leafCount:p.leafCount||null}):p;});}
-    else plants.push({PlantID:uuid(),PlantName:fd.PlantName,Genus:fd.Genus,Species:fd.Species,Cultivar:fd.Cultivar||null,Location:fd.Location,category:fd.category||"other",SoilID:fd.SoilID?+fd.SoilID:null,photo:fd.photo||null,purchaseDate:fd.purchaseDate||null,dead:false,diedDate:null,leafCount:null});
+    if(isEdit){plants=plants.map(function(p){return p.PlantID===selPlant.PlantID?Object.assign({},p,{PlantName:fd.PlantName,Genus:fd.Genus,Species:fd.Species,Cultivar:fd.Cultivar||null,Location:fd.Location,category:fd.category||"other",SoilID:fd.SoilID?+fd.SoilID:null,photo:fd.photo||p.photo,purchaseDate:fd.purchaseDate||null,dead:isDead,diedDate:isDead?(fd.diedDate||toDS()):null,leafCount:p.leafCount||null,sourceType:fd.sourceType||null,sourceName:fd.sourceName||null,sourceContact:fd.sourceContact||null,price:fd.price?+fd.price:null,growMethod:fd.growMethod||null,heightCm:fd.heightCm?+fd.heightCm:null}):p;});}
+    else plants.push({PlantID:uuid(),PlantName:fd.PlantName,Genus:fd.Genus,Species:fd.Species,Cultivar:fd.Cultivar||null,Location:fd.Location,category:fd.category||"other",SoilID:fd.SoilID?+fd.SoilID:null,photo:fd.photo||null,purchaseDate:fd.purchaseDate||null,dead:false,diedDate:null,leafCount:null,sourceType:fd.sourceType||null,sourceName:fd.sourceName||null,sourceContact:fd.sourceContact||null,price:fd.price?+fd.price:null,growMethod:fd.growMethod||null,heightCm:fd.heightCm?+fd.heightCm:null});
     save("lpb5_plants",plants);
     // Upsert the changed plant to DB
     var _changedPlant=isEdit?plants.filter(function(p){return p.PlantID===selPlant.PlantID;})[0]:plants[plants.length-1];
