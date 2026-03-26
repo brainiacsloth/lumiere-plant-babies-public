@@ -120,7 +120,7 @@ body{font-family:"Montserrat",sans-serif;background:transparent;color:var(--ink)
 .genus-ln{flex:1;height:1px;background:var(--faint)}
 
 /* PLANT GRID & CARD */
-.plant-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:15px}
+.plant-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:8px}
 .plant-card{background:rgba(250,247,242,0.86);border-radius:16px;border:1px solid rgba(0,0,0,0.06);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .3s ease both}
 .plant-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
 .plant-card.dead{opacity:0.5;filter:grayscale(0.6)}
@@ -292,7 +292,8 @@ input[type="date"].fi{color-scheme:light}
 .pu-ico{font-size:24px;margin-bottom:4px}.pu-txt{font-size:12px;color:var(--muted);font-weight:500}
 .pu-hint{font-family:"Geist Mono",monospace;font-size:9px;color:var(--sage);margin-top:2px;letter-spacing:.5px}
 .ph-prev{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:11px}
-.chg-ph{background:none;border:1px solid var(--faint);border-radius:6px;padding:3px 9px;font-family:"Geist Mono",monospace;font-size:9px;color:var(--sage);cursor:pointer}
+.chg-ph:hover{background:#fff}
+.chg-ph{font-family:"Montserrat",sans-serif;font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;border:none;background:rgba(250,247,242,0.92);color:var(--ink);cursor:pointer;transition:background .15s;backdrop-filter:blur(4px)}
 .btn-p{width:100%;padding:12px;background:var(--forest);color:#fff;border:none;border-radius:9px;font-family:"Montserrat",sans-serif;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.3px;transition:background .15s,transform .1s;margin-top:5px}
 .btn-p:hover{background:var(--moss)}.btn-p:active{transform:scale(0.98)}
 .btn-cancel{width:100%;padding:9px;background:none;border:none;font-family:"Montserrat",sans-serif;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;margin-top:5px}
@@ -527,8 +528,7 @@ input[type="date"].fi{color-scheme:light}
   .cta-btn{padding:8px 14px!important;font-size:10px!important}
 
   /* PLANT GRID — single column, taller cards */
-  .plant-scroll-row{gap:10px!important}
-  .card-img{height:200px!important}
+    .card-img{height:200px!important}
 
   /* DETAIL OVERLAY — full screen */
   .det-overlay{padding:0!important;align-items:flex-end}
@@ -716,11 +716,10 @@ input[type="date"].fi{color-scheme:light}
 .wx-loc{font-family:"Geist Mono",monospace;font-size:8px;color:var(--muted);letter-spacing:.5px;margin-left:10px;padding-left:10px;border-left:1px solid var(--faint)}
 
 /* ── Plants horizontal scroll layout ── */
-.plant-scroll-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--faint) transparent}
 .plant-scroll-row::-webkit-scrollbar{height:4px}
 .plant-scroll-row::-webkit-scrollbar-track{background:transparent}
 .plant-scroll-row::-webkit-scrollbar-thumb{background:var(--faint);border-radius:2px}
-.plant-card{width:220px;flex-shrink:0;background:rgba(250,247,242,0.88);border-radius:14px;border:1px solid rgba(0,0,0,0.06);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .18s,box-shadow .18s;animation:fadeUp .3s ease both}
+.plant-card{background:rgba(250,247,242,0.88);border-radius:14px;border:1px solid rgba(0,0,0,0.06);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .18s,box-shadow .18s;animation:fadeUp .3s ease both}
 .plant-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
 
 /* ── Search bar ── */
@@ -765,24 +764,19 @@ input[type="date"].fi{color-scheme:light}
 .auth-divider span{font-family:"Geist Mono",monospace;font-size:9px;color:var(--muted);letter-spacing:1px}
 
 
-.ins-panel{position:relative}
+.ins-panel{position:relative;background:rgba(250,247,242,0.88);border:1px solid rgba(0,0,0,0.05);border-radius:14px;padding:17px 18px;box-shadow:var(--sh)}
 .ins-expand-btn{position:absolute;top:10px;right:10px;background:rgba(255,255,255,0.9);border:1px solid rgba(0,0,0,0.12);border-radius:6px;padding:4px 10px;font-family:"Geist Mono",monospace;font-size:9px;color:var(--muted);cursor:pointer;letter-spacing:.5px;transition:all .15s;z-index:2;white-space:nowrap}
 .ins-expand-btn:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
 .ins-panel-expanded{position:fixed!important;inset:12px!important;z-index:500!important;border-radius:20px!important;overflow-y:auto!important;padding:32px 40px!important;box-shadow:0 32px 100px rgba(0,0,0,0.35)!important;background:#faf7f2!important}
 .ins-panel-expanded .ip-t{font-size:12px!important;letter-spacing:2.5px!important;margin-bottom:24px!important;padding-right:80px}
 .ins-panel-expanded .chart-wrap{min-height:380px!important}
 .ins-panel-expanded .ins-expand-btn{top:20px;right:20px;padding:6px 14px;font-size:10px}
-.ins-panel-expanded .age-bars,.ins-panel-expanded .ins-health-history{gap:6px!important}
-.ins-panel-expanded .ab-nm{font-size:12px!important;min-width:180px!important;max-width:220px!important;white-space:nowrap;overflow:visible!important}
+.ins-panel-expanded .ab-nm{font-size:12px!important;min-width:180px!important;max-width:220px!important;overflow:visible!important}
 .ins-panel-expanded .hb-row{margin-bottom:10px!important}
 .ins-panel-expanded .hb-lbl{font-size:13px!important}
 .ins-panel-expanded .dgi{padding:14px!important}
 .ins-panel-expanded .dgi-lbl{font-size:10px!important}
 .ins-panel-expanded .dgi-val{font-size:15px!important}
-.ins-panel-expanded .ins-damage-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))!important;gap:10px!important}
-.ins-panel-expanded .ins-dmg-pill{padding:10px 14px!important}
-.ins-panel-expanded .ins-dmg-lbl{font-size:13px!important}
-.ins-panel-expanded .ins-dmg-ct{font-size:18px!important}
 .ins-overlay{position:fixed;inset:0;background:rgba(10,46,34,0.6);z-index:499;backdrop-filter:blur(6px)}
 
 </style>
@@ -1393,9 +1387,9 @@ function renderMobNav(){
   var items=[
     {id:"welcome",ico:"\uD83C\uDF1F",lbl:"Home"},
     {id:"plants",ico:"\uD83E\uDEF4",lbl:"Plants",badge:plants.filter(function(p){return !p.dead;}).length||null},
-    {id:"logs",ico:"\uD83D\uDCCB",lbl:"Logs"},
     {id:"reminders",ico:"\uD83D\uDD14",lbl:"Care",badge:(nw2+nf)||null},
-    {id:"insights",ico:"\uD83D\uDCCA",lbl:"More"}
+    {id:"insights",ico:"\uD83D\uDCCA",lbl:"Insights"},
+    {id:"weather",ico:"\u26C5",lbl:"Weather"}
   ];
   items.forEach(function(t){
     var b=el("button",{cls:"mob-nav-btn"+(view===t.id?" active":""),onclick:function(){view=t.id;activeCat="all";render();}});
@@ -1515,23 +1509,15 @@ function renderNav(){
 }
 
 function renderTopbar(){
-  // On mobile, add user avatar to topbar right
-  if(isMobile()&&currentUser){
-    var tr=document.getElementById("topbar-right");
-    if(tr){
-      tr.innerHTML="";
-      var uavBtn=el("button",{css:"background:none;border:none;cursor:pointer;font-size:22px;padding:4px;",txt:currentUser.initial,onclick:function(){signOut();}});
-      tr.appendChild(uavBtn);
-    }
-  }
+  var tbr=document.getElementById("topbar-right");
+  if(tbr)tbr.innerHTML="";
   var titles={welcome:"Welcome",plants:"My Plants",archive:"In Memoriam",logs:"Care Logs",reminders:"Reminders",insights:"Insights"};
   document.getElementById("topbar-title").textContent=titles[view]||"";
-  var tr=document.getElementById("topbar-right");tr.innerHTML="";
-  if(view==="plants"||view==="archive"){
+  if((view==="plants"||view==="archive")&&tbr){
     var ab=el("button",{cls:"btn-add",onclick:function(){modal="plant";fd={};render();}});
     ab.appendChild(el("span",{cls:"btn-add-sq",txt:"+"}));
     ab.appendChild(el("span",{cls:"btn-add-lbl",txt:"New plant"}));
-    tr.appendChild(ab);
+    tbr.appendChild(ab);
   }
 }
 
@@ -1857,7 +1843,7 @@ function renderWelcome(parent){
     var p=document.createElement("div");
     p.style.cssText="padding:22px 24px;border-bottom:1px solid rgba(0,0,0,0.06)";
     var h=document.createElement("div");
-    h.style.cssText="font-family:'Geist Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:6px";
+    h.style.cssText="font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:6px";
     h.innerHTML='<span style="display:inline-block;width:3px;height:3px;border-radius:50%;background:var(--sage)"></span>'+title;
     p.appendChild(h);p.appendChild(content);
     return p;
@@ -1881,10 +1867,10 @@ function renderWelcome(parent){
       if(x.p.photo){var im=document.createElement("img");im.src=x.p.photo;im.style.cssText="width:100%;height:100%;object-fit:cover";av.appendChild(im);}
       else av.textContent=plantEmoji(x.p);
       row.appendChild(av);
-      var nm=document.createElement("div");nm.style.cssText="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--forest);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";nm.textContent=x.p.PlantName;row.appendChild(nm);
+      var nm=document.createElement("div");nm.style.cssText="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:800;color:var(--ink);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";nm.textContent=x.p.PlantName;row.appendChild(nm);
       var wn=document.createElement("div");
       var wCol=x.d<0?"var(--red)":x.d===0?"var(--amber)":"var(--muted)";
-      wn.style.cssText="font-family:'Geist Mono',monospace;font-size:9px;color:"+wCol+";flex-shrink:0";
+      wn.style.cssText="font-family:'Geist Mono',monospace;font-size:10px;font-weight:700;color:"+wCol+";flex-shrink:0";
       wn.textContent=x.type+" "+(x.d<0?"OVERDUE":x.d===0?"TODAY":"IN "+x.d+"D");
       row.appendChild(wn);nuWrap.appendChild(row);
     });
@@ -1892,6 +1878,29 @@ function renderWelcome(parent){
     var nt=document.createElement("div");nt.style.cssText="font-family:'Geist Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.4px;padding:6px 0";nt.textContent="ALL SYSTEMS NOMINAL";nuWrap.appendChild(nt);
   }
   right.appendChild(sidePanel("NEXT UP",nuWrap));
+
+  // Latest addition
+  var latestPlant=plants.filter(function(p){return !p.dead&&p.purchaseDate;}).sort(function(a,b){return new Date(b.purchaseDate)-new Date(a.purchaseDate);});
+  if(!latestPlant.length)latestPlant=plants.filter(function(p){return !p.dead;}).slice(-1);
+  if(latestPlant.length){
+    var lp=latestPlant[0];
+    var lpWrap=document.createElement("div");
+    var lpRow=document.createElement("div");
+    lpRow.style.cssText="display:flex;align-items:center;gap:12px;padding:4px 0";
+    var lpAv=document.createElement("div");
+    lpAv.style.cssText="width:48px;height:48px;border-radius:10px;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,var(--mist),var(--mint));display:flex;align-items:center;justify-content:center;font-size:22px";
+    if(lp.photo){var lpImg=document.createElement("img");lpImg.src=lp.photo;lpImg.style.cssText="width:100%;height:100%;object-fit:cover";lpAv.appendChild(lpImg);}else lpAv.textContent=plantEmoji(lp);
+    lpRow.appendChild(lpAv);
+    var lpInfo=document.createElement("div");lpInfo.style.cssText="flex:1;min-width:0";
+    var lpName=document.createElement("div");lpName.style.cssText="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:800;color:var(--ink);margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";lpName.textContent=lp.PlantName;
+    var lpSci=document.createElement("div");lpSci.style.cssText="font-family:'Geist Mono',monospace;font-size:9px;color:var(--muted);font-style:italic;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";lpSci.textContent=lp.Genus+" "+lp.Species;
+    var lpDate=document.createElement("div");lpDate.style.cssText="font-family:'Geist Mono',monospace;font-size:9px;font-weight:700;color:var(--forest)";
+    lpDate.textContent=lp.purchaseDate?"Added "+fmt(lp.purchaseDate):"Recently added";
+    lpInfo.appendChild(lpName);lpInfo.appendChild(lpSci);lpInfo.appendChild(lpDate);
+    lpRow.appendChild(lpInfo);
+    lpWrap.appendChild(lpRow);
+    right.appendChild(sidePanel("LATEST ADDITION",lpWrap));
+  }
 
   // Activity chart — last 7 days
   var actWrap=document.createElement("div");
@@ -1915,7 +1924,7 @@ function renderWelcome(parent){
     bar.style.cssText="flex:1;border-radius:2px 2px 0 0;background:"+(i===6?"rgba(46,158,114,0.7)":"rgba(46,158,114,0.22)")+";height:"+pct+"%";
     actBars.appendChild(bar);
     var lbl=document.createElement("div");
-    lbl.style.cssText="font-family:'Geist Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:.3px;flex:1;text-align:center";
+    lbl.style.cssText="font-family:'Geist Mono',monospace;font-size:8px;font-weight:700;color:var(--ink);letter-spacing:.5px;flex:1;text-align:center";
     lbl.textContent=i===6?"NOW":DNAMES[b.date.getDay()].slice(0,1);
     lblRow.appendChild(lbl);
   });
@@ -1930,7 +1939,7 @@ function renderWelcome(parent){
   tipTxt.style.cssText="font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic;color:var(--mid);line-height:1.6;margin-bottom:6px";
   tipTxt.textContent=tip[0];
   var tipSrc=document.createElement("div");
-  tipSrc.style.cssText="font-family:'Geist Mono',monospace;font-size:8px;color:var(--sage);letter-spacing:.6px";
+  tipSrc.style.cssText="font-family:'Geist Mono',monospace;font-size:9px;font-weight:700;color:var(--forest);letter-spacing:1px";
   tipSrc.textContent=tip[1].toUpperCase();
   tipWrap.appendChild(tipTxt);tipWrap.appendChild(tipSrc);
   right.appendChild(sidePanel("DAILY TIP",tipWrap));
@@ -1969,7 +1978,7 @@ function renderArchive(parent){
   if(!dead.length){parent.appendChild(emptyState("\uD83C\uDF31","No plants in memoriam","Plants you mark as passed will appear here."));return;}
   renderPlantList(parent,dead,true);
 }
-function renderPlantList(parent,list,isDead){
+function renderPlantList(parent,list,isDead,skipHeader){
   // ── Auto-archive check ──────────────────────────────────────────────────
   if(!isDead){
     var autoArchiveDays=90;
@@ -1987,7 +1996,7 @@ function renderPlantList(parent,list,isDead){
     }
   }
 
-  if(!isDead){
+  if(!isDead&&!skipHeader){
     var nw2=list.filter(needsWater);var nf=list.filter(needsFert);
     if(nw2.length||nf.length){
       var bw=el("div",{css:"display:flex;gap:9px;margin-bottom:16px;flex-wrap:wrap"});
@@ -1996,6 +2005,7 @@ function renderPlantList(parent,list,isDead){
       parent.appendChild(bw);
     }
 
+    if(skipHeader){return;}// search/tabs already rendered
     // ── Search bar ────────────────────────────────────────────────────────
     var sw=el("div",{cls:"plant-search-wrap"});
     sw.appendChild(el("span",{cls:"plant-search-ico",txt:"\uD83D\uDD0D"}));
@@ -2005,7 +2015,16 @@ function renderPlantList(parent,list,isDead){
     si.oninput=function(e){
       plantSearch=e.target.value;
       sc.className="plant-search-clear"+(plantSearch?" visible":"");
-      renderPage();
+      var pg=document.getElementById("page");
+      if(!pg)return;
+      pg.querySelectorAll(".genus-block").forEach(function(b){pg.removeChild(b);});
+      var pg2=document.createElement("div");
+      var aliveList=plants.filter(function(p){return !p.dead;});
+      renderPlantList(pg2,aliveList,false,true);
+      while(pg2.querySelector(".genus-block")){
+        pg.appendChild(pg2.querySelector(".genus-block"));
+        pg2.querySelector(".genus-block").remove();
+      }
     };
     sw.appendChild(si);sw.appendChild(sc);
     parent.appendChild(sw);
@@ -2025,6 +2044,19 @@ function renderPlantList(parent,list,isDead){
     var ot=ctab("outdoor","\uD83C\uDF33","Garden");if(ot)tabs.appendChild(ot);
     CATS.forEach(function(cat){var t=ctab(cat.id,cat.ico,cat.label);if(t)tabs.appendChild(t);});
     parent.appendChild(tabs);
+
+    // ── Collapse / Expand All ─────────────────────────────────────────────
+    var colRow=el("div",{css:"display:flex;justify-content:flex-end;gap:8px;margin-bottom:4px;margin-top:2px"});
+    var _allOpen=true;
+    var colAllBtn=el("button",{css:"font-family:'Geist Mono',monospace;font-size:9px;letter-spacing:.5px;background:none;border:none;color:var(--muted);cursor:pointer;padding:4px 8px;border-radius:4px;transition:color .15s",txt:"COLLAPSE ALL"});
+    colAllBtn.onclick=function(){
+      _allOpen=!_allOpen;
+      colAllBtn.textContent=_allOpen?"COLLAPSE ALL":"EXPAND ALL";
+      parent.querySelectorAll(".plant-grid").forEach(function(g){g.style.display=_allOpen?"grid":"none";});
+      parent.querySelectorAll(".genus-chev").forEach(function(ch){ch.style.transform=_allOpen?"":"rotate(-90deg)";});
+    };
+    colRow.appendChild(colAllBtn);
+    parent.appendChild(colRow);
   }
 
   // ── Filter by category ───────────────────────────────────────────────────
@@ -2055,7 +2087,13 @@ function renderPlantList(parent,list,isDead){
 
   // ── Group by genus, render as horizontal scroll rows ─────────────────────
   var gMap={};
-  filtered.forEach(function(p){var g=p.Genus||"Unknown";if(!gMap[g])gMap[g]=[];gMap[g].push(p);});
+  filtered.forEach(function(p){
+    var raw=(p.Genus||"Unknown").trim();
+    var g=raw.charAt(0).toUpperCase()+raw.slice(1).toLowerCase();
+    if(g==="Unknown"&&raw!=="Unknown")g=raw;
+    if(!gMap[g])gMap[g]=[];
+    gMap[g].push(p);
+  });
 
   Object.keys(gMap).sort().forEach(function(genus,gi){
     var sec=el("div",{cls:"genus-block"});
@@ -2063,7 +2101,7 @@ function renderPlantList(parent,list,isDead){
     var chev=el("span",{css:"font-size:11px;color:var(--muted);transition:transform .22s;flex-shrink:0",txt:"\u25be"});
     var gh=el("div",{cls:"genus-hdr",css:"cursor:pointer;user-select:none",onclick:function(){
       genOpen=!genOpen;
-      scrollRow.style.display=genOpen?"flex":"none";
+      grid.style.display=genOpen?"grid":"none";
       chev.style.transform=genOpen?"":"rotate(-90deg)";
     }});
     gh.appendChild(el("div",{cls:"genus-nm",txt:genus}));
@@ -2073,13 +2111,13 @@ function renderPlantList(parent,list,isDead){
     sec.appendChild(gh);
 
     // Horizontal scroll row
-    var scrollRow=el("div",{cls:"plant-scroll-row"});
+    var grid=el("div",{cls:"plant-grid"});
     gMap[genus].forEach(function(p,ci){
       var card=makePlantCard(p);
       card.style.animationDelay=(gi*0.04+ci*0.03)+"s";
-      scrollRow.appendChild(card);
+      grid.appendChild(card);
     });
-    sec.appendChild(scrollRow);
+    sec.appendChild(grid);
     parent.appendChild(sec);
   });
 }
@@ -2182,7 +2220,7 @@ function renderDetailOverlay(p){
   if(p.Cultivar)dg.appendChild(dgi("Cultivar","‘"+p.Cultivar+"’"));
   var SRC={"nursery":"Nursery","store":"Retail Store","facebook":"Facebook Marketplace","online":"Online Store","gifted":"Gifted","propagated":"Propagated","other":"Other"};
   if(p.sourceType)dg.appendChild(dgi("Source",SRC[p.sourceType]||p.sourceType));
-  if(p.sourceName)dg.appendChild(dgi(p.sourceType==="facebook"?"Seller":p.sourceType==="nursery"?"Nursery":"Store name",p.sourceName));
+  if(p.sourceName)dg.appendChild(dgi(p.sourceType==="facebook"?"Seller":p.sourceType==="nursery"?"Nursery":"Store",p.sourceName));
   if(p.sourceContact)dg.appendChild(dgi("Seller contact",p.sourceContact));
   if(p.price)dg.appendChild(dgi("Price paid","R"+Number(p.price).toFixed(2)));
   if(p.growMethod){var GM={"bought":"Bought","propagated":"Propagated","seeded":"From seed","corm":"From corm","division":"Division","air_layer":"Air layering","tissue_culture":"Tissue culture","offset":"Offset / pup","gifted":"Gifted","other":"Other"};dg.appendChild(dgi("Grown by",GM[p.growMethod]||p.growMethod));}
@@ -2524,16 +2562,14 @@ function makeRemCard(p,type){
 function makeInsPanel(titleTxt) {
   var panel = el("div",{cls:"ins-panel"});
   if(titleTxt) panel.appendChild(el("div",{cls:"ip-t",txt:titleTxt}));
-  var expBtn = el("button",{cls:"ins-expand-btn",txt:"⤢ EXPAND"});
+  var expBtn = el("button",{cls:"ins-expand-btn",txt:"\u2922 EXPAND"});
   var overlay = null;
-
   expBtn.onclick = function(e){
     e.stopPropagation();
     var expanded = panel.classList.contains("ins-panel-expanded");
     if(expanded){
-      // Collapse
       panel.classList.remove("ins-panel-expanded");
-      expBtn.textContent="⤢ EXPAND";
+      expBtn.textContent="\u2922 EXPAND";
       if(overlay&&overlay.parentNode)overlay.parentNode.removeChild(overlay);
       overlay=null;
       document.body.style.overflow="";
@@ -2541,9 +2577,9 @@ function makeInsPanel(titleTxt) {
         panel.querySelectorAll("canvas").forEach(function(cv){
           var ch=Chart.getChart(cv);
           if(ch){
-            var scales=ch.options.scales;
-            if(scales&&scales.x&&scales.x.ticks){scales.x.ticks.font={family:"Geist Mono",size:11,weight:"600"};}
-            if(scales&&scales.y&&scales.y.ticks){scales.y.ticks.font={family:"Geist Mono",size:11,weight:"600"};}
+            var sc=ch.options.scales;
+            if(sc&&sc.x&&sc.x.ticks)sc.x.ticks.font={family:"Geist Mono",size:11,weight:"600"};
+            if(sc&&sc.y&&sc.y.ticks)sc.y.ticks.font={family:"Geist Mono",size:11,weight:"600"};
             if(ch.config.type==="doughnut"||ch.config.type==="polarArea"){
               ch.options.plugins.legend.labels={font:{family:"Geist Mono",size:12,weight:"600"},boxWidth:12,padding:16};
               ch.options.plugins.legend.position="bottom";
@@ -2553,26 +2589,20 @@ function makeInsPanel(titleTxt) {
         });
       },50);
     } else {
-      // Expand
       overlay=el("div",{cls:"ins-overlay"});
       overlay.onclick=function(){expBtn.click();};
       document.body.appendChild(overlay);
       panel.classList.add("ins-panel-expanded");
-      expBtn.textContent="✕ CLOSE";
+      expBtn.textContent="\u2715 CLOSE";
       document.body.style.overflow="hidden";
-      // Give panel time to reach full size then resize all charts
       setTimeout(function(){
         panel.querySelectorAll("canvas").forEach(function(cv){
           var ch=Chart.getChart(cv);
           if(ch){
             ch.resize();
-            // Improve expanded readability
-            if(ch.config.type==="bar"||ch.config.type==="line"){
-              var scales=ch.options.scales;
-              if(scales&&scales.x&&scales.x.ticks){scales.x.ticks.font={family:"Geist Mono",size:13,weight:"700"};}
-              if(scales&&scales.y&&scales.y.ticks){scales.y.ticks.font={family:"Geist Mono",size:13,weight:"700"};}
-              if(scales&&scales.r&&scales.r.ticks){scales.r.ticks.font={family:"Geist Mono",size:12};}
-            }
+            var sc=ch.options.scales;
+            if(sc&&sc.x&&sc.x.ticks)sc.x.ticks.font={family:"Geist Mono",size:13,weight:"700"};
+            if(sc&&sc.y&&sc.y.ticks)sc.y.ticks.font={family:"Geist Mono",size:13,weight:"700"};
             if(ch.config.type==="doughnut"||ch.config.type==="polarArea"){
               ch.options.plugins.legend.labels={font:{family:"Geist Mono",size:14,weight:"700"},boxWidth:16,padding:20};
               ch.options.plugins.legend.position="right";
@@ -2622,7 +2652,7 @@ function renderInsights(parent){
     var tr2=el("div",{cls:"hb-track"});tr2.appendChild(el("div",{cls:"hb-fill",css:"width:"+Math.round(hc[k]/tot*100)+"%;background:"+hCol[k]}));
     row.appendChild(tr2);row.appendChild(el("div",{cls:"hb-pct",txt:Math.round(hc[k]/tot*100)+"%"}));hPanel.appendChild(row);
   });
-  var dw=el("div",{cls:"chart-wrap",css:"height:200px"});dw.appendChild(el("canvas",{id:"cv-dough"}));hPanel.appendChild(dw);
+  var dw=el("div",{cls:"chart-wrap",css:"height:130px"});dw.appendChild(el("canvas",{id:"cv-dough"}));hPanel.appendChild(dw);
 
   // Health over time (last 8 weeks)
   hPanel.appendChild(el("div",{cls:"ip-t",css:"margin-top:14px",txt:"HEALTH TREND (LAST 8 WEEKS)"}));
@@ -2647,7 +2677,7 @@ function renderInsights(parent){
   // Categories + damage types panel
   var cPanel=makeInsPanel("CATEGORIES");
   CATS.forEach(function(cat){var ct=alive.filter(function(p){return p.category===cat.id;}).length;if(!ct)return;var row=el("div",{cls:"tbl-row"});var lb=el("div",{cls:"tbl-lbl"});lb.innerHTML=cat.ico+" "+cat.label;row.appendChild(lb);row.appendChild(el("div",{cls:"tbl-val",txt:ct+"x"}));cPanel.appendChild(row);});
-  var cw=el("div",{cls:"chart-wrap",css:"height:180px"});cw.appendChild(el("canvas",{id:"cv-cat"}));cPanel.appendChild(cw);
+  var cw=el("div",{cls:"chart-wrap",css:"height:120px"});cw.appendChild(el("canvas",{id:"cv-cat"}));cPanel.appendChild(cw);
 
   // Damage type breakdown
   var dmgCounts={};
@@ -2674,7 +2704,7 @@ function renderInsights(parent){
   var aged=alive.filter(function(p){return p.purchaseDate;}).sort(function(a,b){return new Date(a.purchaseDate)-new Date(b.purchaseDate);});
   var maxAge=aged.length?daysOld(aged[0].purchaseDate):1;
   var ab=el("div",{cls:"age-bars"});
-  aged.slice(0,8).forEach(function(p){var age=daysOld(p.purchaseDate);var row=el("div",{cls:"age-row"});row.appendChild(el("div",{cls:"ab-nm",txt:p.PlantName,css:"white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px"}));var tr3=el("div",{cls:"ab-trk"});tr3.appendChild(el("div",{cls:"ab-fill",css:"width:"+Math.round(age/maxAge*100)+"%"}));row.appendChild(tr3);row.appendChild(el("div",{cls:"ab-age",txt:ageStr(age)}));ab.appendChild(row);});
+  aged.slice(0,8).forEach(function(p){var age=daysOld(p.purchaseDate);var row=el("div",{cls:"age-row"});row.appendChild(el("div",{cls:"ab-nm",txt:p.PlantName}));var tr3=el("div",{cls:"ab-trk"});tr3.appendChild(el("div",{cls:"ab-fill",css:"width:"+Math.round(age/maxAge*100)+"%"}));row.appendChild(tr3);row.appendChild(el("div",{cls:"ab-age",txt:ageStr(age)}));ab.appendChild(row);});
   if(!aged.length)ab.appendChild(el("div",{css:"font-size:12px;color:var(--muted);padding:6px 0",txt:"No purchase dates set"}));
   agePanel.appendChild(ab);r2.appendChild(agePanel);
 
@@ -2693,7 +2723,7 @@ function renderInsights(parent){
   var leafByMonth={};
   logs.forEach(function(l){if(l.NewLeaves&&l.NewLeafCount){var d2=new Date(l.LogDate);var k=d2.getFullYear()+"-"+String(d2.getMonth()+1).padStart(2,"0");leafByMonth[k]=(leafByMonth[k]||0)+(l.NewLeafCount||1);}});
   var lbmKeys=Object.keys(leafByMonth).sort().slice(-8);
-  var lbmWrap=el("div",{cls:"chart-wrap",css:"height:160px"});lbmWrap.appendChild(el("canvas",{id:"cv-leaves"}));mixPanel.appendChild(lbmWrap);
+  var lbmWrap=el("div",{cls:"chart-wrap",css:"height:100px"});lbmWrap.appendChild(el("canvas",{id:"cv-leaves"}));mixPanel.appendChild(lbmWrap);
 
   // Soil
   mixPanel.appendChild(el("div",{cls:"ip-t",css:"margin-top:14px",txt:"GROWING MEDIA"}));
@@ -2705,7 +2735,7 @@ function renderInsights(parent){
   // Row 3: activity line + genus
   var r3=el("div",{cls:"ins-grid",css:"margin-top:14px"});
   var actPanel=makeInsPanel("CARE LOGS BY MONTH");
-  var lcw=el("div",{cls:"chart-wrap",css:"height:180px"});lcw.appendChild(el("canvas",{id:"cv-line"}));actPanel.appendChild(lcw);
+  var lcw=el("div",{cls:"chart-wrap",css:"height:120px"});lcw.appendChild(el("canvas",{id:"cv-line"}));actPanel.appendChild(lcw);
   // Weekly note activity
   var notedLogs=logs.filter(function(l){return l.WeeklyNote;});
   if(notedLogs.length){
@@ -2739,7 +2769,7 @@ function renderInsights(parent){
   var thirtyDaysAgo=Date.now()-30*86400000;
   var wfData=alive.map(function(p){
     var ct=logs.filter(function(l){return l.PlantID===p.PlantID&&l.Water&&new Date(l.LogDate)>thirtyDaysAgo;}).length;
-    return{name:p.PlantName,count:ct};
+    return{name:p.PlantName.length>14?p.PlantName.slice(0,13)+"\u2026":p.PlantName,count:ct};
   }).sort(function(a,b){return b.count-a.count;});
   var maxWF=Math.max.apply(null,wfData.map(function(x){return x.count;}))||1;
   wfData.forEach(function(x){
@@ -2752,7 +2782,7 @@ function renderInsights(parent){
     wfPanel.appendChild(row);
   });
   if(!alive.length)wfPanel.appendChild(el("div",{css:"font-size:12px;color:var(--muted)",txt:"No plants yet"}));
-  var wfH=Math.max(160,wfData.length*28+40);
+  var wfH=Math.max(180,wfData.length*32+40);
   var wfCw=el("div",{cls:"chart-wrap",css:"height:"+wfH+"px;margin-top:14px"});
   wfCw.appendChild(el("canvas",{id:"cv-wfreq"}));
   wfPanel.appendChild(wfCw);
@@ -2767,8 +2797,8 @@ function renderInsights(parent){
     var u=pl.filter(function(l){return l.HealthStatus==="Unhealthy";}).length;
     return{name:p.PlantName.length>12?p.PlantName.slice(0,11)+"\u2026":p.PlantName,h:h,c:co,u:u,total:pl.length};
   }).filter(function(x){return x.total>0;});
-  var hpH2=Math.max(180,hpNames.length*28+40);
-  var hpCw=el("div",{cls:"chart-wrap",css:"height:"+hpH2+"px"});
+  var hpCwH=Math.max(180,hpData.length*28+40);
+  var hpCw=el("div",{cls:"chart-wrap",css:"height:"+hpCwH+"px"});
   hpCw.appendChild(el("canvas",{id:"cv-hplant"}));
   hpPanel.appendChild(hpCw);
   r4.appendChild(hpPanel);
@@ -2781,7 +2811,7 @@ function renderInsights(parent){
   var fertPanel=makeInsPanel("FERTILISER EVENTS BY MONTH");
   var fertByMonth={};
   logs.forEach(function(l){if(l.FertiliserUsed){var d3=new Date(l.LogDate);var k=d3.getFullYear()+"-"+String(d3.getMonth()+1).padStart(2,"0");fertByMonth[k]=(fertByMonth[k]||0)+1;}});
-  var fertCw=el("div",{cls:"chart-wrap",css:"height:200px"});
+  var fertCw=el("div",{cls:"chart-wrap",css:"height:140px"});
   fertCw.appendChild(el("canvas",{id:"cv-fert"}));
   fertPanel.appendChild(fertCw);
 
@@ -2804,7 +2834,7 @@ function renderInsights(parent){
   var stgPanel=makeInsPanel("PLANT STAGE DISTRIBUTION");
   var stgCounts={Seedling:0,Vegetative:0,Flowering:0,Fruiting:0};
   lastLogs2.forEach(function(l){if(stgCounts[l.PlantStage]!==undefined)stgCounts[l.PlantStage]++;});
-  var stgCw=el("div",{cls:"chart-wrap",css:"height:260px"});
+  var stgCw=el("div",{cls:"chart-wrap",css:"height:200px"});
   stgCw.appendChild(el("canvas",{id:"cv-stage"}));
   stgPanel.appendChild(stgCw);
 
@@ -2823,16 +2853,15 @@ function renderInsights(parent){
   r5.appendChild(stgPanel);
   parent.appendChild(r5);
 
-  // ── ROW 6: Spend analytics ─────────────────────────────────────────────
+  // ── ROW 6: Spend analytics ──────────────────────────────────────────
   var pricedPlants=alive.filter(function(p){return p.price&&p.price>0;});
   if(pricedPlants.length){
     var r6=el("div",{cls:"ins-grid",css:"margin-top:14px"});
-    // Spend summary panel
     var spendPanel=makeInsPanel("COLLECTION SPEND");
     var totalAll=plants.reduce(function(s,p){return s+(p.price||0);},0);
     var totalAlive=alive.reduce(function(s,p){return s+(p.price||0);},0);
     var avgPrice=pricedPlants.length?totalAlive/pricedPlants.length:0;
-    var mostExp=pricedPlants.sort(function(a,b){return b.price-a.price;})[0];
+    var mostExp=pricedPlants.slice().sort(function(a,b){return b.price-a.price;})[0];
     var cheapest=pricedPlants.slice().sort(function(a,b){return a.price-b.price;})[0];
     var sdg=el("div",{cls:"det-grid",css:"margin-top:10px"});
     function sdgi(lbl,val){var d=el("div",{cls:"dgi"});d.appendChild(el("div",{cls:"dgi-lbl",txt:lbl}));d.appendChild(el("div",{cls:"dgi-val",txt:val}));return d;}
@@ -2841,28 +2870,28 @@ function renderInsights(parent){
     sdg.appendChild(sdgi("Average price","R"+avgPrice.toFixed(2)));
     sdg.appendChild(sdgi("Plants with price",pricedPlants.length+" of "+alive.length));
     if(mostExp)sdg.appendChild(sdgi("Most expensive",mostExp.PlantName+" — R"+mostExp.price.toFixed(2)));
-    if(cheapest)sdg.appendChild(sdgi("Cheapest",cheapest.PlantName+" — R"+cheapest.price.toFixed(2)));
+    if(cheapest&&cheapest.PlantID!==mostExp.PlantID)sdg.appendChild(sdgi("Cheapest",cheapest.PlantName+" — R"+cheapest.price.toFixed(2)));
+    var latestPurchase=pricedPlants.filter(function(p){return p.purchaseDate;}).sort(function(a,b){return new Date(b.purchaseDate)-new Date(a.purchaseDate);});
+    if(latestPurchase.length)sdg.appendChild(sdgi("Latest purchase",latestPurchase[0].PlantName+" — "+fmt(latestPurchase[0].purchaseDate)));
     spendPanel.appendChild(sdg);
-    // Spend by source type bar
     var srcSpend={};
     var SRC_LBL={nursery:"Nursery",store:"Retail Store",facebook:"Facebook",online:"Online Store",gifted:"Gifted",propagated:"Propagated",other:"Other"};
     pricedPlants.forEach(function(p){var k=SRC_LBL[p.sourceType]||"Unknown";srcSpend[k]=(srcSpend[k]||0)+(p.price||0);});
     var srcKeys=Object.keys(srcSpend).sort(function(a,b){return srcSpend[b]-srcSpend[a];});
-    if(srcKeys.length>1){
+    if(srcKeys.length>0){
       spendPanel.appendChild(el("div",{cls:"ip-t",css:"margin-top:14px",txt:"SPEND BY SOURCE"}));
       var maxSrc=Math.max.apply(null,srcKeys.map(function(k){return srcSpend[k];}));
       srcKeys.forEach(function(k){
-        var row=el("div",{cls:"age-row"});
-        row.appendChild(el("div",{cls:"ab-nm",txt:k}));
-        var tr=el("div",{cls:"ab-trk"});
-        tr.appendChild(el("div",{cls:"ab-fill",css:"width:"+Math.round(srcSpend[k]/maxSrc*100)+"%;background:linear-gradient(90deg,var(--amber),#f0c040)"}));
-        row.appendChild(tr);
-        row.appendChild(el("div",{cls:"ab-age",txt:"R"+srcSpend[k].toFixed(0)}));
+        var row=el("div",{css:"display:flex;align-items:center;gap:10px;margin-bottom:10px"});
+        row.appendChild(el("div",{css:"font-family:'Geist Mono',monospace;font-size:10px;font-weight:600;color:var(--ink);width:110px;flex-shrink:0",txt:k}));
+        var trk=el("div",{css:"flex:1;height:22px;background:var(--faint);border-radius:6px;overflow:hidden"});
+        trk.appendChild(el("div",{css:"height:100%;width:"+Math.round(srcSpend[k]/maxSrc*100)+"%;background:linear-gradient(90deg,#c07808,#f0c040);border-radius:6px;transition:width .6s ease"}));
+        row.appendChild(trk);
+        row.appendChild(el("div",{css:"font-family:'Geist Mono',monospace;font-size:10px;font-weight:700;color:var(--ink);width:60px;text-align:right;flex-shrink:0",txt:"R"+srcSpend[k].toFixed(0)}));
         spendPanel.appendChild(row);
       });
     }
     r6.appendChild(spendPanel);
-    // Spend by store chart
     var storeSpend={};
     pricedPlants.filter(function(p){return p.sourceType==="store"&&p.sourceName;}).forEach(function(p){storeSpend[p.sourceName]=(storeSpend[p.sourceName]||0)+(p.price||0);});
     var storeKeys=Object.keys(storeSpend);
@@ -2872,57 +2901,55 @@ function renderInsights(parent){
       r6.appendChild(storePanel);
     }
     parent.appendChild(r6);
-    // Draw store chart
-    if(storeKeys.length){
-      setTimeout(function(){
-        var sc4=document.getElementById("cv-store-spend");
-        if(sc4&&typeof Chart!=="undefined")new Chart(sc4,{type:"bar",data:{labels:storeKeys,datasets:[{data:storeKeys.map(function(k){return storeSpend[k];}),backgroundColor:"rgba(192,120,8,0.65)",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"}}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},callback:function(v){return"R"+v;}}}}}});
-      },60);
-    }
+    if(storeKeys.length){setTimeout(function(){
+      var sc4=document.getElementById("cv-store-spend");
+      if(sc4&&typeof Chart!=="undefined")new Chart(sc4,{type:"bar",data:{labels:storeKeys,datasets:[{data:storeKeys.map(function(k){return storeSpend[k];}),backgroundColor:"rgba(192,120,8,0.65)",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"}}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},callback:function(v){return"R"+v;}}}}}});
+    },60);}
   }
 
 
   setTimeout(function(){
     try{
       var dc=document.getElementById("cv-dough");
-      if(dc&&typeof Chart!=="undefined")new Chart(dc,{type:"doughnut",data:{labels:["Healthy","Concerning","Unhealthy"],datasets:[{data:[hc.Healthy,hc.Concerning,hc.Unhealthy],backgroundColor:["#2e9e72","#c07808","#b83030"],borderWidth:0,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:"65%",plugins:{legend:{position:"bottom",labels:{font:{family:"Geist Mono",size:12,weight:"600"},boxWidth:12,padding:16}},tooltip:{callbacks:{label:function(ctx){return" "+ctx.label+": "+ctx.raw+" plants";}}}}}}); 
+      if(dc&&typeof Chart!=="undefined")new Chart(dc,{type:"doughnut",data:{labels:["Healthy","Concerning","Unhealthy"],datasets:[{data:[hc.Healthy,hc.Concerning,hc.Unhealthy],backgroundColor:["#2e9e72","#c07808","#b83030"],borderWidth:0,hoverOffset:8}]},options:{responsive:true,maintainAspectRatio:false,cutout:"65%",plugins:{legend:{position:"bottom",labels:{font:{family:"Geist Mono",size:12,weight:"600"},boxWidth:12,padding:16}},tooltip:{callbacks:{label:function(ctx){return" "+ctx.label+": "+ctx.raw+" plants";}}}}}});
       var catLabels=[];var catData=[];CATS.forEach(function(cat){var ct=alive.filter(function(p){return p.category===cat.id;}).length;if(ct){catLabels.push(cat.label);catData.push(ct);}});
       var cc=document.getElementById("cv-cat");
-      if(cc&&typeof Chart!=="undefined")new Chart(cc,{type:"bar",data:{labels:catLabels,datasets:[{data:catData,backgroundColor:"rgba(46,158,114,0.65)",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return" "+ctx.raw+" plant"+(ctx.raw!==1?"s":"");}}}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},maxRotation:30,minRotation:0}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1}}}}});
+      if(cc&&typeof Chart!=="undefined")new Chart(cc,{type:"bar",data:{labels:catLabels,datasets:[{data:catData,backgroundColor:"rgba(46,158,114,0.65)",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return" "+ctx.raw+" plant"+(ctx.raw!==1?"s":"");}}}}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},maxRotation:30}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1}}}});
       var monthData={};logs.forEach(function(l){var d=new Date(l.LogDate);var key=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");monthData[key]=(monthData[key]||0)+1;});
       var mkeys=Object.keys(monthData).sort().slice(-12);
       var mLabels=mkeys.map(function(k){var p2=k.split("-");return["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+p2[1]-1];});
       var lc=document.getElementById("cv-line");
-      if(lc&&typeof Chart!=="undefined")new Chart(lc,{type:"line",data:{labels:mLabels,datasets:[{data:mkeys.map(function(k){return monthData[k];}),borderColor:"#2e9e72",backgroundColor:"rgba(46,158,114,0.1)",borderWidth:2.5,pointBackgroundColor:"#fff",pointBorderColor:"#2e9e72",pointBorderWidth:2,pointRadius:5,pointHoverRadius:7,tension:0.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return" "+ctx.raw+" log"+(ctx.raw!==1?"s":"");}}}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"}}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1}}}}});
+      if(lc&&typeof Chart!=="undefined")new Chart(lc,{type:"line",data:{labels:mLabels,datasets:[{data:mkeys.map(function(k){return monthData[k];}),borderColor:"#2e9e72",backgroundColor:"rgba(46,158,114,0.1)",borderWidth:2.5,pointBackgroundColor:"#fff",pointBorderColor:"#2e9e72",pointBorderWidth:2,pointRadius:5,pointHoverRadius:7,tension:0.4,fill:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return" "+ctx.raw+" log"+(ctx.raw!==1?"s":"");}}}}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"}}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1}}}});
       // Leaves by month chart
       var lvKeys=Object.keys(leafByMonth).sort().slice(-8);
       var lvLabels=lvKeys.map(function(k){var p2=k.split("-");return["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+p2[1]-1];});
       var lvc=document.getElementById("cv-leaves");
-      if(lvc&&typeof Chart!=="undefined"&&lvKeys.length)new Chart(lvc,{type:"bar",data:{labels:lvLabels,datasets:[{data:lvKeys.map(function(k){return leafByMonth[k];}),backgroundColor:"rgba(125,216,176,0.7)",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return" "+ctx.raw+" new leaf"+(ctx.raw!==1?"ves":"");}}}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},maxRotation:30}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1}}}}});
+      if(lvc&&typeof Chart!=="undefined"&&lvKeys.length)new Chart(lvc,{type:"bar",data:{labels:lvLabels,datasets:[{data:lvKeys.map(function(k){return leafByMonth[k];}),backgroundColor:"rgba(125,216,176,0.7)",borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return" "+ctx.raw+" new leaf"+(ctx.raw!==1?"ves":"");}}}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},maxRotation:30}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1}}}}});
 
       // Watering frequency line chart
-      var wfKeys=alive.map(function(p){return p.PlantName;});
+      var wfKeys=alive.map(function(p){return p.PlantName.length>14?p.PlantName.slice(0,13)+"\u2026":p.PlantName;});
       var wfVals=alive.map(function(p){return logs.filter(function(l){return l.PlantID===p.PlantID&&l.Water&&new Date(l.LogDate)>Date.now()-30*86400000;}).length;});
       var wfc=document.getElementById("cv-wfreq");
       if(wfc&&wfKeys.length&&typeof Chart!=="undefined")new Chart(wfc,{type:"bar",data:{labels:wfKeys,datasets:[{data:wfVals,backgroundColor:"rgba(46,158,114,0.65)",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},color:"rgba(0,0,0,0.7)",maxRotation:45,minRotation:30,autoSkip:false}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1,color:"rgba(0,0,0,0.7)"}}}}});
 
       // Health per plant stacked bar
-      var hpNames=alive.filter(function(p){return logs.some(function(l){return l.PlantID===p.PlantID;});}).map(function(p){return p.PlantName;});
-      var hpH=alive.filter(function(p){return logs.some(function(l){return l.PlantID===p.PlantID;});}).map(function(p){return logs.filter(function(l){return l.PlantID===p.PlantID&&l.HealthStatus==="Healthy";}).length;});
-      var hpC=alive.filter(function(p){return logs.some(function(l){return l.PlantID===p.PlantID;});}).map(function(p){return logs.filter(function(l){return l.PlantID===p.PlantID&&l.HealthStatus==="Concerning";}).length;});
-      var hpU=alive.filter(function(p){return logs.some(function(l){return l.PlantID===p.PlantID;});}).map(function(p){return logs.filter(function(l){return l.PlantID===p.PlantID&&l.HealthStatus==="Unhealthy";}).length;});
+      var hpFilterd=alive.filter(function(p){return logs.some(function(l){return l.PlantID===p.PlantID;});});
+      var hpNames=hpFilterd.map(function(p){return p.PlantName;});
+      var hpH=hpFilterd.map(function(p){return logs.filter(function(l){return l.PlantID===p.PlantID&&l.HealthStatus==="Healthy";}).length;});
+      var hpC=hpFilterd.map(function(p){return logs.filter(function(l){return l.PlantID===p.PlantID&&l.HealthStatus==="Concerning";}).length;});
+      var hpU=hpFilterd.map(function(p){return logs.filter(function(l){return l.PlantID===p.PlantID&&l.HealthStatus==="Unhealthy";}).length;});
       var hpc=document.getElementById("cv-hplant");
-      if(hpc&&hpNames.length&&typeof Chart!=="undefined")new Chart(hpc,{type:"bar",data:{labels:hpNames,datasets:[{label:"Healthy",data:hpH,backgroundColor:"#2e9e72",borderRadius:3},{label:"Concerning",data:hpC,backgroundColor:"#c07808",borderRadius:3},{label:"Unhealthy",data:hpU,backgroundColor:"#b83030",borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:"y",plugins:{legend:{position:"top",labels:{font:{family:"Geist Mono",size:11},boxWidth:10,padding:10}}},scales:{x:{stacked:true,grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1}},y:{stacked:true,grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},autoSkip:false}}}}});
+      if(hpc&&hpNames.length&&typeof Chart!=="undefined")new Chart(hpc,{type:"bar",data:{labels:hpNames,datasets:[{label:"Healthy",data:hpH,backgroundColor:"#2e9e72",borderRadius:3},{label:"Concerning",data:hpC,backgroundColor:"#c07808",borderRadius:3},{label:"Unhealthy",data:hpU,backgroundColor:"#b83030",borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:"y",plugins:{legend:{position:"top",labels:{font:{family:"Geist Mono",size:11},boxWidth:10,padding:10}}},scales:{x:{stacked:true,grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1}},y:{stacked:true,grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"}}}}}});
 
       // Fertiliser by month
       var fmkeys=Object.keys(fertByMonth).sort().slice(-10);
       var fmLabels=fmkeys.map(function(k){var p2=k.split("-");return["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+p2[1]-1];});
       var fc2=document.getElementById("cv-fert");
-      if(fc2&&typeof Chart!=="undefined")new Chart(fc2,{type:"bar",data:{labels:fmLabels.length?fmLabels:["No data"],datasets:[{data:fmkeys.length?fmkeys.map(function(k){return fertByMonth[k];}):[0],backgroundColor:"rgba(192,120,8,0.65)",borderRadius:6,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return" "+ctx.raw+" fertilising event"+(ctx.raw!==1?"s":"");}}}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},color:"rgba(0,0,0,0.7)",maxRotation:30}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1,color:"rgba(0,0,0,0.7)"}}}}});
+      if(fc2&&typeof Chart!=="undefined")new Chart(fc2,{type:"bar",data:{labels:fmLabels.length?fmLabels:["No data"],datasets:[{data:fmkeys.length?fmkeys.map(function(k){return fertByMonth[k];}):[0],backgroundColor:"rgba(192,120,8,0.65)",borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return" "+ctx.raw+" fertilising event"+(ctx.raw!==1?"s":"");}}}},scales:{x:{grid:{display:false},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},color:"rgba(0,0,0,0.7)",maxRotation:30}},y:{grid:{color:"rgba(0,0,0,0.04)"},ticks:{font:{family:"Geist Mono",size:11,weight:"600"},stepSize:1,color:"rgba(0,0,0,0.7)"}}}}});
 
       // Stage polar area
       var sc3=document.getElementById("cv-stage");
-      if(sc3&&typeof Chart!=="undefined")new Chart(sc3,{type:"polarArea",data:{labels:["Seedling","Vegetative","Flowering","Fruiting"],datasets:[{data:[stgCounts.Seedling,stgCounts.Vegetative,stgCounts.Flowering,stgCounts.Fruiting],backgroundColor:["rgba(46,158,114,0.75)","rgba(68,51,168,0.75)","rgba(158,32,96,0.75)","rgba(192,120,8,0.75)"],borderWidth:0,hoverOffset:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:"bottom",labels:{font:{family:"Geist Mono",size:11,weight:"600"},boxWidth:12,padding:14}},tooltip:{callbacks:{label:function(ctx){return" "+ctx.label+": "+ctx.raw+" plant"+(ctx.raw!==1?"s":"");}}}},scales:{r:{ticks:{backdropColor:"transparent",font:{family:"Geist Mono",size:10},color:"rgba(0,0,0,0.5)"},grid:{color:"rgba(0,0,0,0.08)"}}}}});
+      if(sc3&&typeof Chart!=="undefined")new Chart(sc3,{type:"polarArea",data:{labels:["Seedling","Vegetative","Flowering","Fruiting"],datasets:[{data:[stgCounts.Seedling,stgCounts.Vegetative,stgCounts.Flowering,stgCounts.Fruiting],backgroundColor:["rgba(46,158,114,0.7)","rgba(68,51,168,0.7)","rgba(158,32,96,0.7)","rgba(192,120,8,0.7)"],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{r:{ticks:{backdropColor:"transparent",font:{family:"Geist Mono",size:11}},grid:{color:"rgba(0,0,0,0.08)"}}}}});
     }catch(err){console.error("Chart error",err);}
   },200);
 }
@@ -2931,12 +2958,19 @@ function renderInsights(parent){
 function renderPlantModal(isEdit){
   var ov=el("div",{cls:"modal-ov",onclick:function(e){if(e.target===ov){modal=null;render();}}});
   var box=el("div",{cls:"modal-box"});
+  box.onclick=function(e){e.stopPropagation();};
   box.appendChild(el("button",{cls:"modal-close",txt:"\u2715",onclick:function(){modal=null;render();}}));
   box.appendChild(el("div",{cls:"modal-t",txt:isEdit?"Edit plant":"Add a plant"}));
   box.appendChild(el("div",{cls:"modal-s",txt:isEdit?"Update details below":"Tell us about your new plant"}));
   var pi=el("input",{type:"file",accept:"image/*",css:"display:none"});
-  pi.onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){fd.photo=ev.target.result;render();};r.readAsDataURL(f);};
-  if(fd.photo){var pw=el("div",{css:"position:relative;margin-bottom:11px"});var pp=el("img",{cls:"ph-prev"});pp.src=fd.photo;pw.appendChild(pp);pw.appendChild(el("button",{cls:"chg-ph",css:"position:absolute;top:7px;right:7px",txt:"Change",onclick:function(){pi.click();}}));pw.appendChild(pi);box.appendChild(pw);}
+  pi.onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){
+        fd.photo=ev.target.result;
+        // Update preview without full render
+        var prev=document.querySelector(".ph-prev");
+        if(prev){prev.src=ev.target.result;}
+        else{render();}
+      };r.readAsDataURL(f);};
+  if(fd.photo){var pw=el("div",{css:"position:relative;margin-bottom:11px"});var pp=el("img",{cls:"ph-prev"});pp.src=fd.photo;pw.appendChild(pp);pw.appendChild(el("button",{cls:"chg-ph",css:"position:absolute;top:8px;right:8px",txt:"Change",onclick:function(){pi.click();}}));pw.appendChild(el("button",{cls:"chg-ph",css:"position:absolute;top:8px;left:8px",txt:"Remove photo",onclick:function(){fd.photo=null;var pu2=el("div",{cls:"pu-area"});pu2.appendChild(el("div",{cls:"pu-ico",txt:"📷"}));pu2.appendChild(el("div",{cls:"pu-txt",txt:"Add a photo"}));pu2.appendChild(el("div",{cls:"pu-hint",txt:"OPTIONAL"}));pu2.appendChild(pi);pu2.onclick=function(){pi.click();};pw.parentNode.replaceChild(pu2,pw);}}));pw.appendChild(pi);box.appendChild(pw);}
   else{var pa=el("div",{cls:"pu-area",onclick:function(){pi.click();}});pa.appendChild(el("div",{cls:"pu-ico",txt:"\uD83D\uDCF7"}));pa.appendChild(el("div",{cls:"pu-txt",txt:"Add a photo"}));pa.appendChild(el("div",{cls:"pu-hint",txt:"OPTIONAL"}));pa.appendChild(pi);box.appendChild(pa);}
   box.appendChild(el("div",{cls:"fsec",txt:"Identity"}));
   box.appendChild(ff("Plant name","PlantName","input","e.g. Monstera Deliciosa"));
@@ -2950,22 +2984,14 @@ function renderPlantModal(isEdit){
   box.appendChild(ff("Purchase date","purchaseDate","date",""));
   box.appendChild(el("div",{cls:"fsec",txt:"Acquisition & Growth"}));
 
-  // ── Source type selector + dynamic sub-fields ──────────────────────────────
   var srcFg=el("div",{cls:"fg"});srcFg.appendChild(el("label",{cls:"fl",txt:"Where did you get it?"}));
   var srcSel=el("select",{cls:"fi"});
-  [{v:"",l:"Select..."},{v:"nursery",l:"🌿 Nursery"},{v:"store",l:"🏪 Retail Store"},{v:"facebook",l:"📱 Facebook Marketplace"},{v:"online",l:"🛒 Online Store"},{v:"gifted",l:"🎁 Gifted"},{v:"propagated",l:"✂️ Propagated from own plant"},{v:"other",l:"🤷 Other"}].forEach(function(o){
-    var opt=el("option",{value:o.v,txt:o.l});
-    if(fd.sourceType===o.v)opt.selected=true;
-    srcSel.appendChild(opt);
+  [{v:"",l:"Select..."},{v:"nursery",l:"🌿 Nursery"},{v:"store",l:"🏪 Retail Store"},{v:"facebook",l:"📱 Facebook Marketplace"},{v:"online",l:"🛒 Online Store"},{v:"gifted",l:"🎁 Gifted"},{v:"propagated",l:"✂️ Propagated from own plant"},{v:"other",l:"🫴 Other"}].forEach(function(o){
+    var opt=el("option",{value:o.v,txt:o.l});if(fd.sourceType===o.v)opt.selected=true;srcSel.appendChild(opt);
   });
-  srcFg.appendChild(srcSel);
-  box.appendChild(srcFg);
-
-  // Dynamic sub-fields container
-  var srcSub=el("div",{id:"src-sub-fields"});
-  box.appendChild(srcSub);
-
-  function buildSourceSub() {
+  srcFg.appendChild(srcSel);box.appendChild(srcFg);
+  var srcSub=el("div",{id:"src-sub-fields"});box.appendChild(srcSub);
+  function buildSourceSub(){
     srcSub.innerHTML="";
     var type=srcSel.value;
     if(type==="nursery"){
@@ -2974,13 +3000,10 @@ function renderPlantModal(isEdit){
       [{v:"",l:"Select nursery..."},{v:"Plantify",l:"Plantify"},{v:"Ray's Retail Therapy",l:"Ray's Retail Therapy"},{v:"Stodels",l:"Stodels"},{v:"Starke Ayres",l:"Starke Ayres"},{v:"Montebello",l:"Montebello Design Centre"},{v:"Other",l:"Other (type below)"}].forEach(function(o){
         var opt=el("option",{value:o.v,txt:o.l});if(fd.sourceName===o.v)opt.selected=true;nursSel.appendChild(opt);
       });
-      var nursOther=el("input",{type:"text",cls:"fi",placeholder:"Nursery name...",css:"margin-top:8px;display:"+(fd.sourceName&&!["Stodels","Starke Ayres","Montebello"].includes(fd.sourceName)&&fd.sourceName?"block":"none")});
-      nursOther.value=(fd.sourceName&&!["Stodels","Starke Ayres","Montebello",""].includes(fd.sourceName))?fd.sourceName:"";
+      var nursOther=el("input",{type:"text",cls:"fi",placeholder:"Nursery name...",css:"margin-top:8px;display:"+(fd.sourceName&&!["Stodels","Starke Ayres","Montebello","Plantify","Ray's Retail Therapy",""].includes(fd.sourceName)?"block":"none")});
+      nursOther.value=(fd.sourceName&&!["Stodels","Starke Ayres","Montebello","Plantify","Ray's Retail Therapy",""].includes(fd.sourceName))?fd.sourceName:"";
       nursOther.oninput=function(e){fd.sourceName=e.target.value;};
-      nursSel.onchange=function(){
-        if(nursSel.value==="Other"){nursOther.style.display="block";fd.sourceName="";}
-        else{nursOther.style.display="none";fd.sourceName=nursSel.value;}
-      };
+      nursSel.onchange=function(){if(nursSel.value==="Other"){nursOther.style.display="block";fd.sourceName="";}else{nursOther.style.display="none";fd.sourceName=nursSel.value;}};
       nfg.appendChild(nursSel);nfg.appendChild(nursOther);srcSub.appendChild(nfg);
     } else if(type==="store"){
       var sfg=el("div",{cls:"fg"});sfg.appendChild(el("label",{cls:"fl",txt:"Store name"}));
@@ -2989,8 +3012,7 @@ function renderPlantModal(isEdit){
         var opt=el("option",{value:o.v,txt:o.l});if(fd.sourceName===o.v)opt.selected=true;storeSel.appendChild(opt);
       });
       storeSel.onchange=function(){fd.sourceName=storeSel.value;};
-      sfg.appendChild(storeSel);
-      srcSub.appendChild(sfg);
+      sfg.appendChild(storeSel);srcSub.appendChild(sfg);
     } else if(type==="facebook"){
       var ff1=el("div",{cls:"fg"});ff1.appendChild(el("label",{cls:"fl",txt:"Seller name"}));
       var fi1=el("input",{type:"text",cls:"fi",placeholder:"e.g. Jane's Plant Corner"});
@@ -3015,15 +3037,13 @@ function renderPlantModal(isEdit){
   srcSel.onchange=function(){fd.sourceType=srcSel.value;fd.sourceName="";fd.sourceContact="";buildSourceSub();};
   buildSourceSub();
 
-  // Price + grow method row
   var pgRow=el("div",{cls:"form-row"});
   var priceFg=el("div",{cls:"fg"});priceFg.appendChild(el("label",{cls:"fl",txt:"Price paid (R)"}));
   var priceInp=el("input",{type:"number",cls:"fi",placeholder:"e.g. 250"});
   priceInp.min="0";priceInp.step="0.01";
   priceInp.value=fd.price!=null?String(fd.price):"";
   priceInp.oninput=function(e){var v=parseFloat(e.target.value);fd.price=isNaN(v)?null:v;};
-  priceFg.appendChild(priceInp);pgRow.appendChild(priceFg);
-  box.appendChild(pgRow);
+  priceFg.appendChild(priceInp);pgRow.appendChild(priceFg);box.appendChild(pgRow);
 
   box.appendChild(ff("How was it grown?","growMethod","select","",[{v:"",l:"Select..."},{v:"bought",l:"Bought"},{v:"propagated",l:"Propagated (cutting)"},{v:"seeded",l:"Grown from seed"},{v:"corm",l:"Grown from corm"},{v:"division",l:"Division"},{v:"air_layer",l:"Air layering"},{v:"tissue_culture",l:"Tissue culture"},{v:"offset",l:"Offset / pup"},{v:"gifted",l:"Gifted"},{v:"other",l:"Other"}]));
 
@@ -3044,7 +3064,7 @@ function renderPlantModal(isEdit){
     if(!fd.PlantName||!fd.Genus||!fd.Species||!fd.Location){alert("Please fill in name, genus, species, and location.");return;}
     var isDead=fd.dead==="true"||fd.dead===true;
     if(isEdit){plants=plants.map(function(p){return p.PlantID===selPlant.PlantID?Object.assign({},p,{PlantName:fd.PlantName,Genus:fd.Genus,Species:fd.Species,Cultivar:fd.Cultivar||null,Location:fd.Location,category:fd.category||"other",SoilID:fd.SoilID?+fd.SoilID:null,photo:fd.photo||p.photo,purchaseDate:fd.purchaseDate||null,dead:isDead,diedDate:isDead?(fd.diedDate||toDS()):null,leafCount:p.leafCount||null,sourceType:fd.sourceType||null,sourceName:fd.sourceName||null,sourceContact:fd.sourceContact||null,price:fd.price?+fd.price:null,growMethod:fd.growMethod||null,heightCm:fd.heightCm?+fd.heightCm:null}):p;});}
-    else plants.push({PlantID:uuid(),PlantName:fd.PlantName,Genus:fd.Genus,Species:fd.Species,Cultivar:fd.Cultivar||null,Location:fd.Location,category:fd.category||"other",SoilID:fd.SoilID?+fd.SoilID:null,photo:fd.photo||null,purchaseDate:fd.purchaseDate||null,dead:false,diedDate:null,leafCount:null,sourceType:fd.sourceType||null,sourceName:fd.sourceName||null,sourceContact:fd.sourceContact||null,price:fd.price?+fd.price:null,growMethod:fd.growMethod||null,heightCm:fd.heightCm?+fd.heightCm:null});
+    else plants.push({PlantID:uuid(),PlantName:fd.PlantName,Genus:fd.Genus,Species:fd.Species,Cultivar:fd.Cultivar||null,Location:fd.Location,category:fd.category||"other",SoilID:fd.SoilID?+fd.SoilID:null,photo:fd.photo||null,purchaseDate:fd.purchaseDate||null,dead:false,diedDate:null,leafCount:fd.leafCount||null,sourceType:fd.sourceType||null,sourceName:fd.sourceName||null,sourceContact:fd.sourceContact||null,price:fd.price?+fd.price:null,growMethod:fd.growMethod||null,heightCm:fd.heightCm?+fd.heightCm:null});
     save("lpb5_plants",plants);
     // Upsert the changed plant to DB
     var _changedPlant=isEdit?plants.filter(function(p){return p.PlantID===selPlant.PlantID;})[0]:plants[plants.length-1];
@@ -3068,6 +3088,7 @@ function renderLogModal(isEdit){
   var p=isEdit?plants.filter(function(pl){return pl.PlantID===selLog.PlantID;})[0]||null:selPlant;
   var ov=el("div",{cls:"modal-ov",onclick:function(e){if(e.target===ov){modal=null;render();}}});
   var box=el("div",{cls:"modal-box"});
+  box.onclick=function(e){e.stopPropagation();};
   box.appendChild(el("button",{cls:"modal-close",txt:"\u2715",onclick:function(){modal=null;render();}}));
   box.appendChild(el("div",{cls:"modal-t",txt:isEdit?"Edit log":"Log care"}));
   box.appendChild(el("div",{cls:"modal-s",txt:(p?p.PlantName:"Plant")+" \u00b7 "+(isEdit?fmt(selLog.LogDate):new Date().toLocaleDateString("en-ZA",{weekday:"long",day:"numeric",month:"long"}))}));
