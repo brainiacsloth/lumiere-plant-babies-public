@@ -121,8 +121,6 @@ body{font-family:"Montserrat",sans-serif;background:transparent;color:var(--ink)
 
 /* PLANT GRID & CARD */
 .plant-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:8px}
-@media(max-width:768px){.plant-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}.card-name{font-size:13px!important}.card-sci{font-size:10px!important}.card-age{font-size:10px!important}.card-img{height:130px!important}.cf-btn{font-size:10px!important;padding:6px 4px!important}.card-body{padding:10px!important}.chip{font-size:9px!important;padding:2px 7px!important}}
-@media(max-width:400px){.plant-grid{grid-template-columns:1fr!important}}
 .plant-card{background:rgba(250,247,242,0.86);border-radius:16px;border:1px solid rgba(0,0,0,0.06);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .3s ease both}
 .plant-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
 .plant-card.dead{opacity:0.5;filter:grayscale(0.6)}
@@ -239,7 +237,7 @@ body{font-family:"Montserrat",sans-serif;background:transparent;color:var(--ink)
 .is-sub{font-size:10px;color:var(--muted);margin-top:4px}
 .ins-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 .ins-panel{background:rgba(250,247,242,0.88);border:1px solid rgba(0,0,0,0.05);border-radius:14px;padding:17px 18px;box-shadow:var(--sh)}
-.ip-t{font-family:"Geist Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:13px;padding-bottom:7px;border-bottom:1px solid var(--faint);padding-right:72px}
+.ip-t{font-family:"Geist Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:13px;padding-bottom:7px;border-bottom:1px solid var(--faint)}
 .hb-row{display:flex;align-items:center;gap:9px;margin-bottom:8px}
 .hb-lbl{font-size:11px;font-weight:500;color:var(--ink);width:78px;flex-shrink:0}
 .hb-track{flex:1;height:6px;background:var(--faint);border-radius:3px;overflow:hidden}
@@ -294,8 +292,7 @@ input[type="date"].fi{color-scheme:light}
 .pu-ico{font-size:24px;margin-bottom:4px}.pu-txt{font-size:12px;color:var(--muted);font-weight:500}
 .pu-hint{font-family:"Geist Mono",monospace;font-size:9px;color:var(--sage);margin-top:2px;letter-spacing:.5px}
 .ph-prev{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-bottom:11px}
-.chg-ph:hover{background:#fff}
-.chg-ph{font-family:"Montserrat",sans-serif;font-size:11px;font-weight:600;padding:5px 14px;border-radius:20px;border:none;background:rgba(250,247,242,0.92);color:var(--ink);cursor:pointer;transition:background .15s;backdrop-filter:blur(4px)}
+.chg-ph{background:none;border:1px solid var(--faint);border-radius:6px;padding:3px 9px;font-family:"Geist Mono",monospace;font-size:9px;color:var(--sage);cursor:pointer}
 .btn-p{width:100%;padding:12px;background:var(--forest);color:#fff;border:none;border-radius:9px;font-family:"Montserrat",sans-serif;font-size:13px;font-weight:700;cursor:pointer;letter-spacing:.3px;transition:background .15s,transform .1s;margin-top:5px}
 .btn-p:hover{background:var(--moss)}.btn-p:active{transform:scale(0.98)}
 .btn-cancel{width:100%;padding:9px;background:none;border:none;font-family:"Montserrat",sans-serif;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;margin-top:5px}
@@ -502,7 +499,7 @@ input[type="date"].fi{color-scheme:light}
   .topbar-title{font-size:10px!important;letter-spacing:2px}
 
   /* Page padding */
-  .page{padding:20px 16px 24px!important}
+  .page{padding:12px 10px 80px!important}
 
   /* BOTTOM NAV */
   .mob-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:200;background:#0c0c0a;border-top:1px solid rgba(255,255,255,0.08);height:64px;align-items:stretch;padding:0}
@@ -530,7 +527,8 @@ input[type="date"].fi{color-scheme:light}
   .cta-btn{padding:8px 14px!important;font-size:10px!important}
 
   /* PLANT GRID — single column, taller cards */
-    .card-img{height:200px!important}
+  .plant-scroll-row{gap:10px!important}
+  .card-img{height:200px!important}
 
   /* DETAIL OVERLAY — full screen */
   .det-overlay{padding:0!important;align-items:flex-end}
@@ -718,10 +716,11 @@ input[type="date"].fi{color-scheme:light}
 .wx-loc{font-family:"Geist Mono",monospace;font-size:8px;color:var(--muted);letter-spacing:.5px;margin-left:10px;padding-left:10px;border-left:1px solid var(--faint)}
 
 /* ── Plants horizontal scroll layout ── */
+.plant-scroll-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--faint) transparent}
 .plant-scroll-row::-webkit-scrollbar{height:4px}
 .plant-scroll-row::-webkit-scrollbar-track{background:transparent}
 .plant-scroll-row::-webkit-scrollbar-thumb{background:var(--faint);border-radius:2px}
-.plant-card{background:rgba(250,247,242,0.88);border-radius:14px;border:1px solid rgba(0,0,0,0.06);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .18s,box-shadow .18s;animation:fadeUp .3s ease both}
+.plant-card{width:220px;flex-shrink:0;background:rgba(250,247,242,0.88);border-radius:14px;border:1px solid rgba(0,0,0,0.06);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .18s,box-shadow .18s;animation:fadeUp .3s ease both}
 .plant-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
 
 /* ── Search bar ── */
@@ -765,22 +764,6 @@ input[type="date"].fi{color-scheme:light}
 .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--faint)}
 .auth-divider span{font-family:"Geist Mono",monospace;font-size:9px;color:var(--muted);letter-spacing:1px}
 
-
-.ins-panel{position:relative;background:rgba(250,247,242,0.88);border:1px solid rgba(0,0,0,0.05);border-radius:14px;padding:17px 18px;box-shadow:var(--sh)}
-.ins-expand-btn{position:absolute;top:10px;right:10px;background:rgba(255,255,255,0.9);border:1px solid rgba(0,0,0,0.12);border-radius:6px;padding:4px 10px;font-family:"Geist Mono",monospace;font-size:9px;color:var(--muted);cursor:pointer;letter-spacing:.5px;transition:all .15s;z-index:2;white-space:nowrap}
-.ins-expand-btn:hover{background:var(--forest);color:#fff;border-color:var(--forest)}
-.ins-panel-expanded{position:fixed!important;inset:12px!important;z-index:500!important;border-radius:20px!important;overflow-y:auto!important;padding:32px 40px!important;box-shadow:0 32px 100px rgba(0,0,0,0.35)!important;background:#faf7f2!important}
-.ins-panel-expanded .ip-t{font-size:12px!important;letter-spacing:2.5px!important;margin-bottom:24px!important;padding-right:80px}
-.ins-panel-expanded .chart-wrap{min-height:380px!important}
-.ins-panel-expanded .ins-expand-btn{top:20px;right:20px;padding:6px 14px;font-size:10px}
-.ins-panel-expanded .ab-nm{font-size:12px!important;min-width:180px!important;max-width:220px!important;overflow:visible!important}
-.ins-panel-expanded .hb-row{margin-bottom:10px!important}
-.ins-panel-expanded .hb-lbl{font-size:13px!important}
-.ins-panel-expanded .dgi{padding:14px!important}
-.ins-panel-expanded .dgi-lbl{font-size:10px!important}
-.ins-panel-expanded .dgi-val{font-size:15px!important}
-.ins-overlay{position:fixed;inset:0;background:rgba(10,46,34,0.6);z-index:499;backdrop-filter:blur(6px)}
-
 </style>
 </head>
 <body>
@@ -816,6 +799,7 @@ input[type="date"].fi{color-scheme:light}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
+
 
 // ═══ SUPABASE CONFIG ════════════════════════════════════════════════════════
 var SUPA_URL = "https://bucpaequwwtiresykdhl.supabase.co";
@@ -1400,6 +1384,10 @@ function renderMobNav(){
     if(t.badge){var bg=el("div",{cls:"mob-nav-badge",txt:String(t.badge)});b.appendChild(bg);}
     nav.appendChild(b);
   });
+  var sob=el("button",{cls:"mob-nav-btn",onclick:function(){if(confirm("Sign out?"))signOut();}});
+  sob.appendChild(el("div",{cls:"mob-nav-ico",txt:"\uD83D\uDEAA"}));
+  sob.appendChild(el("div",{cls:"mob-nav-lbl",txt:"Sign out"}));
+  nav.appendChild(sob);
 }
 
 function uuid(){return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){var r=Math.random()*16|0;return(c==="x"?r:(r&0x3|0x8)).toString(16);});}
@@ -1515,11 +1503,17 @@ function renderTopbar(){
   if(tbr)tbr.innerHTML="";
   var titles={welcome:"Welcome",plants:"My Plants",archive:"In Memoriam",logs:"Care Logs",reminders:"Reminders",insights:"Insights"};
   document.getElementById("topbar-title").textContent=titles[view]||"";
-  if((view==="plants"||view==="archive")&&tbr){
-    var ab=el("button",{cls:"btn-add",onclick:function(){modal="plant";fd={};render();}});
-    ab.appendChild(el("span",{cls:"btn-add-sq",txt:"+"}));
-    ab.appendChild(el("span",{cls:"btn-add-lbl",txt:"New plant"}));
-    tbr.appendChild(ab);
+  if(tbr){
+    if(isMobile()&&currentUser){
+      var soBtn=el("button",{css:"background:none;border:none;cursor:pointer;font-size:11px;font-family:'Geist Mono',monospace;color:var(--muted);letter-spacing:.5px;padding:4px 8px",txt:"SIGN OUT",onclick:function(){signOut();}});
+      tbr.appendChild(soBtn);
+    }
+    if(view==="plants"||view==="archive"){
+      var ab=el("button",{cls:"btn-add",onclick:function(){modal="plant";fd={};render();}});
+      ab.appendChild(el("span",{cls:"btn-add-sq",txt:"+"}));
+      if(!isMobile())ab.appendChild(el("span",{cls:"btn-add-lbl",txt:"New plant"}));
+      tbr.appendChild(ab);
+    }
   }
 }
 
@@ -3671,6 +3665,7 @@ fetchWeather();
 })();
 document.body.classList.toggle("is-mobile",isMobile());
 checkAuth();
+
 </script>
 
 </body>
