@@ -121,6 +121,8 @@ body{font-family:"Montserrat",sans-serif;background:transparent;color:var(--ink)
 
 /* PLANT GRID & CARD */
 .plant-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:8px}
+@media(max-width:768px){.plant-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}.card-name{font-size:13px!important}.card-sci{font-size:10px!important}.card-age{font-size:10px!important}.card-img{height:130px!important}.cf-btn{font-size:10px!important;padding:6px 4px!important}.card-body{padding:10px!important}.chip{font-size:9px!important;padding:2px 7px!important}}
+@media(max-width:400px){.plant-grid{grid-template-columns:1fr!important}}
 .plant-card{background:rgba(250,247,242,0.86);border-radius:16px;border:1px solid rgba(0,0,0,0.06);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .3s ease both}
 .plant-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
 .plant-card.dead{opacity:0.5;filter:grayscale(0.6)}
