@@ -236,7 +236,14 @@ body{font-family:"Montserrat",sans-serif;background:transparent;color:var(--ink)
 .is-val{font-size:30px;font-weight:900;color:var(--forest);line-height:1}
 .is-sub{font-size:10px;color:var(--muted);margin-top:4px}
 .ins-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.ins-panel{background:rgba(250,247,242,0.88);border:1px solid rgba(0,0,0,0.05);border-radius:14px;padding:17px 18px;box-shadow:var(--sh)}
+.ins-panel{background:rgba(250,247,242,0.88);border:1px solid rgba(0,0,0,0.05);border-radius:14px;padding:17px 18px;box-shadow:var(--sh);position:relative}
+.ins-expand-btn{position:absolute;top:12px;right:12px;background:transparent;border:1.5px solid rgba(0,0,0,0.15);border-radius:8px;padding:4px 11px;font-family:"Geist Mono",monospace;font-size:9px;letter-spacing:.8px;color:var(--ink);cursor:pointer;transition:all .18s;z-index:2;white-space:nowrap}
+.ins-expand-btn:hover{border-color:var(--ink);background:rgba(0,0,0,0.04)}
+.ins-panel-expanded .ins-expand-btn{top:20px;right:20px;font-size:10px;padding:6px 14px}
+.ins-panel-expanded{position:fixed!important;inset:12px!important;z-index:500!important;border-radius:20px!important;overflow-y:auto!important;padding:32px 40px!important;box-shadow:0 32px 100px rgba(0,0,0,0.35)!important;background:#faf7f2!important}
+.ins-panel-expanded .ip-t{font-size:12px!important;letter-spacing:2.5px!important;margin-bottom:24px!important;padding-right:80px}
+.ins-panel-expanded .chart-wrap{min-height:380px!important}
+.ins-overlay{position:fixed;inset:0;background:rgba(10,46,34,0.6);z-index:499;backdrop-filter:blur(6px)}
 .ip-t{font-family:"Geist Mono",monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);font-weight:700;margin-bottom:13px;padding-bottom:7px;border-bottom:1px solid var(--faint)}
 .hb-row{display:flex;align-items:center;gap:9px;margin-bottom:8px}
 .hb-lbl{font-size:11px;font-weight:500;color:var(--ink);width:78px;flex-shrink:0}
@@ -593,29 +600,40 @@ input[type="date"].fi{color-scheme:light}
   .genus-nm{font-size:18px!important}
   .genus-pill{font-size:9px!important}
 
-  /* WEATHER — mobile scaling */
-  .wx-page{gap:10px!important}
-  .wx-hero{padding:20px 16px!important;border-radius:12px!important;grid-template-columns:1fr!important;grid-template-rows:auto auto auto!important}
-  .wx-hero-ico{font-size:48px!important;grid-column:1!important;grid-row:1!important;margin-bottom:4px}
-  .wx-big-temp{font-size:52px!important;letter-spacing:-2px!important}
-  .wx-big-desc{font-size:14px!important}
+  /* WEATHER — mobile complete rework */
+  .wx-page{gap:10px!important;padding:0 0 16px!important}
+  /* Hero - single column, compact */
+  .wx-hero{padding:20px 16px 16px!important;border-radius:14px!important;display:flex!important;flex-direction:column!important;gap:0!important}
+  .wx-location{font-size:8px!important;letter-spacing:1.5px!important;margin-bottom:6px!important}
+  .wx-temp-block{display:flex!important;align-items:center!important;gap:12px!important;margin-bottom:12px!important}
+  .wx-big-temp{font-size:48px!important;letter-spacing:-2px!important;line-height:1!important}
+  .wx-big-desc{font-size:13px!important;margin-top:2px!important}
   .wx-big-feels{font-size:8px!important;letter-spacing:1px!important}
-  .wx-location{font-size:8px!important;letter-spacing:1.5px!important;margin-bottom:8px!important}
-  .wx-stats-strip{grid-template-columns:repeat(2,1fr)!important;gap:8px!important;padding:12px!important;margin-top:12px!important}
-  .wx-stat-cell{padding:8px!important}
-  .wx-sc-val{font-size:16px!important}
-  .wx-sc-lbl{font-size:9px!important}
-  .wx-forecast-strip{grid-template-columns:repeat(7,minmax(40px,1fr))!important;overflow-x:auto!important;gap:6px!important;padding-bottom:8px!important}
-  .wx-fc{padding:10px 6px!important;border-radius:10px!important;min-width:40px}
-  .wx-fc-day{font-size:8px!important;letter-spacing:.5px!important}
-  .wx-fc-ico{font-size:22px!important}
-  .wx-fc-hi{font-size:14px!important}
-  .wx-fc-lo{font-size:11px!important}
-  .wx-fc-tag{font-size:7px!important;padding:2px 4px!important}
+  .wx-hero-ico{font-size:44px!important;position:absolute!important;top:16px!important;right:16px!important}
+  /* Stats - 2x2 grid */
+  .wx-stats-strip{grid-template-columns:repeat(2,1fr)!important;gap:6px!important;padding:10px!important;margin-top:0!important;border-radius:10px!important}
+  .wx-stat-cell{padding:8px 10px!important}
+  .wx-sc-ico{font-size:16px!important}
+  .wx-sc-val{font-size:15px!important;font-weight:700!important}
+  .wx-sc-lbl{font-size:8px!important;letter-spacing:.5px!important}
+  /* Forecast - horizontal scroll */
+  .wx-forecast-strip{display:flex!important;overflow-x:auto!important;gap:8px!important;padding:0 0 8px!important;-webkit-overflow-scrolling:touch!important;scrollbar-width:none!important}
+  .wx-forecast-strip::-webkit-scrollbar{display:none}
+  .wx-fc{min-width:72px!important;max-width:72px!important;padding:10px 8px!important;border-radius:12px!important;flex-shrink:0!important}
+  .wx-fc-day{font-size:8px!important;letter-spacing:.5px!important;margin-bottom:4px!important}
+  .wx-fc-ico{font-size:24px!important;margin-bottom:4px!important}
+  .wx-fc-hi{font-size:15px!important;font-weight:700!important}
+  .wx-fc-lo{font-size:11px!important;margin-top:1px!important}
+  .wx-fc-bar{margin:6px 0!important}
+  .wx-fc-tags{gap:2px!important;margin-top:6px!important}
+  .wx-fc-tag{font-size:7px!important;padding:2px 4px!important;white-space:nowrap!important}
+  /* Charts - single column */
   .wx-chart-grid{grid-template-columns:1fr!important;gap:10px!important}
-  .wx-chart-panel{border-radius:10px!important;padding:14px!important}
-  .wx-chart-title{font-size:9px!important}
-  .wx-chart-wrap{height:150px!important}
+  .wx-chart-panel{border-radius:12px!important;padding:14px 12px!important}
+  .wx-chart-hdr{margin-bottom:8px!important}
+  .wx-chart-title{font-size:9px!important;letter-spacing:1.5px!important}
+  .wx-chart-unit{font-size:8px!important}
+  .wx-chart-wrap{height:160px!important}
 }
 
 /* Show mob-nav only on mobile */
@@ -2595,14 +2613,14 @@ function makeRemCard(p,type){
 function makeInsPanel(titleTxt) {
   var panel = el("div",{cls:"ins-panel"});
   if(titleTxt) panel.appendChild(el("div",{cls:"ip-t",txt:titleTxt}));
-  var expBtn = el("button",{cls:"ins-expand-btn",txt:"\u2922 EXPAND"});
+  var expBtn = el("button",{cls:"ins-expand-btn",txt:"↗ EXPAND"});
   var overlay = null;
   expBtn.onclick = function(e){
     e.stopPropagation();
     var expanded = panel.classList.contains("ins-panel-expanded");
     if(expanded){
       panel.classList.remove("ins-panel-expanded");
-      expBtn.textContent="\u2922 EXPAND";
+      expBtn.textContent="↗ EXPAND";
       if(overlay&&overlay.parentNode)overlay.parentNode.removeChild(overlay);
       overlay=null;
       document.body.style.overflow="";
