@@ -120,7 +120,7 @@ body{font-family:"Montserrat",sans-serif;background:transparent;color:var(--ink)
 .genus-ln{flex:1;height:1px;background:var(--faint)}
 
 /* PLANT GRID & CARD */
-.plant-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:8px}
+.plant-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:8px;width:100%}
 .plant-card{background:rgba(250,247,242,0.86);border-radius:16px;border:1px solid rgba(0,0,0,0.06);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .3s ease both}
 .plant-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
 .plant-card.dead{opacity:0.5;filter:grayscale(0.6)}
@@ -527,8 +527,7 @@ input[type="date"].fi{color-scheme:light}
   .cta-btn{padding:8px 14px!important;font-size:10px!important}
 
   /* PLANT GRID — single column, taller cards */
-  .plant-scroll-row{gap:10px!important}
-  
+    
 
   /* DETAIL OVERLAY — full screen */
   .det-overlay{padding:0!important;align-items:flex-end}
@@ -716,10 +715,6 @@ input[type="date"].fi{color-scheme:light}
 .wx-loc{font-family:"Geist Mono",monospace;font-size:8px;color:var(--muted);letter-spacing:.5px;margin-left:10px;padding-left:10px;border-left:1px solid var(--faint)}
 
 /* ── Plants horizontal scroll layout ── */
-.plant-scroll-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--faint) transparent}
-.plant-scroll-row::-webkit-scrollbar{height:4px}
-.plant-scroll-row::-webkit-scrollbar-track{background:transparent}
-.plant-scroll-row::-webkit-scrollbar-thumb{background:var(--faint);border-radius:2px}
 
 .plant-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
 
