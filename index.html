@@ -120,7 +120,7 @@ body{font-family:"Montserrat",sans-serif;background:transparent;color:var(--ink)
 .genus-ln{flex:1;height:1px;background:var(--faint)}
 
 /* PLANT GRID & CARD */
-.plant-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:8px;width:100%}
+.plant-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:8px;width:100%;box-sizing:border-box}
 .plant-card{background:rgba(250,247,242,0.86);border-radius:16px;border:1px solid rgba(0,0,0,0.06);overflow:hidden;box-shadow:var(--sh);cursor:pointer;transition:transform .2s,box-shadow .2s;animation:fadeUp .3s ease both}
 .plant-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
 .plant-card.dead{opacity:0.5;filter:grayscale(0.6)}
@@ -574,6 +574,23 @@ input[type="date"].fi{color-scheme:light}
 
   /* Damage grid 2 col */
   .dmg-grid{grid-template-columns:1fr 1fr!important}
+
+  /* PLANT GRID — 2 columns on mobile */
+  .plant-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px!important;width:100%!important}
+  .plant-card{width:100%!important;min-width:0!important;max-width:none!important;box-sizing:border-box!important}
+  .card-img{height:110px!important}
+  .card-name{font-size:12px!important}
+  .card-sci{font-size:9px!important}
+  .card-age{font-size:9px!important}
+  .card-body{padding:8px!important}
+  .chip{font-size:8px!important;padding:2px 6px!important}
+  .cf-btn{font-size:9px!important;padding:5px 2px!important}
+  .card-foot{gap:2px!important;padding:6px 8px!important}
+  .loc-badge{font-size:8px!important;padding:3px 6px!important}
+  .cat-badge{font-size:8px!important;padding:3px 6px!important}
+  .si{font-size:9px!important}
+  .genus-nm{font-size:18px!important}
+  .genus-pill{font-size:9px!important}
 }
 
 /* Show mob-nav only on mobile */
